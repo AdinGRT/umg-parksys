@@ -21,13 +21,43 @@ public class Test {
 //
 //        System.out.println(resultado);
 
-        Ticket ticket = new Ticket(1, 1, 1);
-        System.out.println(ticket.getHorarioEntrada());
+//        Ticket ticket = new Ticket(1, 1, 2);
+//        System.out.println(ticket.getHorarioEntrada());
+//        
+//        TicketDAO ticketDao = new TicketDAO();
+//        
+//        int resultado = ticketDao.insertar(ticket);
+//        
+//        System.out.println(resultado);
+//        
+        System.out.println("COBRAR EL TICKET");
+        //VALIDAR NO. TICKET
+            
+            
+        //DETERMINAR HORARIO DE SALIDA
+        Ticket ticket = new Ticket();
+        
+        ticket.setIdTicket(2);
+        ticket.setHorarioSalida();
+        System.out.println(ticket.getHorarioSalida());
         
         TicketDAO ticketDao = new TicketDAO();
         
-        int resultado = ticketDao.insertar(ticket);
-        System.out.println(resultado);
+        int resultado = ticketDao.actualizar(ticket);
+        
+        //DETERMINAR EL MONTO SEGUN TARIFARIO
+            
+            
+        //UPDATE CON LOS DATOS DE HORARIO SALIDA Y MONTO, CAMBIAR STATUS A PAGADO(2)
+        
+        
+        
+        //RECEPCION DEL TICKET,
+        //VALIDAR TICKET
+        //DETERMINAR SI ESTA PAGADO
+        //SI ESTA PAGADO DARLE SALIDA, UPDATE ticket STATUS A RECIBIDO(3)
+        
+        
         
         
     }

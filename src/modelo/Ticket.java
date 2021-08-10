@@ -18,14 +18,26 @@ public class Ticket {
     private int idVehiculo;
     private int idTicketStatus;
 
+    public Ticket() {
+    }
+
+    public int getIdTicket() {
+        return idTicket;
+    }
+
+        
     public Ticket(int idUsuario, int idVehiculo, int idTicketStatus) {
         this.horarioEntrada = this.obtenerHorario();
         this.idUsuario = idUsuario;
         this.idVehiculo = idVehiculo;
         this.idTicketStatus = idTicketStatus;
     }
+
+    public void setIdTicket(int idTicket) {
+        this.idTicket = idTicket;
+    }
     
-    public String obtenerHorario() {
+    private String obtenerHorario() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
@@ -33,6 +45,14 @@ public class Ticket {
         String horario = dateFormat.format(date);
         
         return horario;
+    }
+
+    public String getHorarioSalida() {
+        return horarioSalida;
+    }
+    
+    public void setHorarioSalida() {
+        this.horarioSalida = this.obtenerHorario();
     }
 
     public String getHorarioEntrada() {

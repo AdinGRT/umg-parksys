@@ -14,6 +14,8 @@ public class TicketDAO {
     private static final String SQL_INSERT_INGRESO = "INSERT INTO ticket(horario_entrada, id_usuario, id_vehiculo, id_ticket_status) "
             + "VALUES (?, ?, ?, ?)";
     
+    private static final String SQL_UPDATE_SALIDA = "UPDATE ticket SET horario_salida = ? WHERE id_ticket = ?";
+    
     public int insertar(Ticket ticket) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -39,4 +41,31 @@ public class TicketDAO {
         }
         return rows;
     }
+    
+    public int actualizar(Ticket ticket) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_UPDATE_SALIDA);
+            
+            stmt.setString(1, ticket.getHorarioSalida());
+            stmt.setInt(2, ticket.getIdTicket());
+            
+            rows = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rows;
+    }
+    
+    
 }
