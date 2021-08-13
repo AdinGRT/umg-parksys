@@ -70,7 +70,7 @@ public class Test {
         
         AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
         agregarVehiculo.setVisible(true);
-        ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2);
+        ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
         
     }
     

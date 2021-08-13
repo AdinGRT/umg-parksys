@@ -37,6 +37,7 @@ public class AgregarVehiculo extends javax.swing.JFrame {
         jTextColor = new javax.swing.JTextField();
         jTextModelo = new javax.swing.JTextField();
         jButtonAceptarIngreso = new javax.swing.JButton();
+        jButtonGenerar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +67,13 @@ public class AgregarVehiculo extends javax.swing.JFrame {
         jButtonAceptarIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAceptarIngresoActionPerformed(evt);
+            }
+        });
+
+        jButtonGenerar.setText("Generar");
+        jButtonGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarActionPerformed(evt);
             }
         });
 
@@ -104,6 +112,8 @@ public class AgregarVehiculo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButtonAceptarIngreso)
+                .addGap(43, 43, 43)
+                .addComponent(jButtonGenerar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,7 +136,9 @@ public class AgregarVehiculo extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jButtonAceptarIngreso)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAceptarIngreso)
+                    .addComponent(jButtonGenerar))
                 .addGap(29, 29, 29))
         );
 
@@ -144,6 +156,10 @@ public class AgregarVehiculo extends javax.swing.JFrame {
     private void jButtonAceptarIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarIngresoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAceptarIngresoActionPerformed
+
+    private void jButtonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGenerarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,6 +198,7 @@ public class AgregarVehiculo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptarIngreso;
+    private javax.swing.JButton jButtonGenerar;
     private javax.swing.JButton jButtonValidarPlaca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -239,5 +256,13 @@ public class AgregarVehiculo extends javax.swing.JFrame {
 
     public void setjTextPlaca(javax.swing.JTextField jTextPlaca) {
         this.jTextPlaca = jTextPlaca;
+    }
+
+    public javax.swing.JButton getjButtonGenerar() {
+        return jButtonGenerar;
+    }
+
+    public void setjButtonGenerar(javax.swing.JButton jButtonGenerar) {
+        this.jButtonGenerar = jButtonGenerar;
     }
 }
