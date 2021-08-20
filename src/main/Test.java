@@ -1,6 +1,7 @@
 package main;
 
 import controlador.ControladorIngresoVehiculo;
+import controlador.ControladorSeleccionarVehiculo;
 import dao.TicketDAO;
 import dao.VehiculoDAO;
 import java.sql.*;
@@ -74,6 +75,7 @@ public class Test {
         //ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
         SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
         seleccionarVehiculo.setVisible(true);
+        ControladorSeleccionarVehiculo conSeleV = new ControladorSeleccionarVehiculo(seleccionarVehiculo, 1);
         
     }
     

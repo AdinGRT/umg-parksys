@@ -9,6 +9,7 @@ import modelo.Ticket;
 import modelo.TipoVehiculo;
 import modelo.Vehiculo;
 import vista.AgregarVehiculo;
+import vista.SeleccionarVehiculo;
 
 /**
  *
@@ -23,10 +24,14 @@ public class ControladorIngresoVehiculo implements ActionListener {
     private TicketDAO ticketDao = null;
     private int idUsuario;
     
-    private AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
+    private AgregarVehiculo agregarVehiculo;
 
-    public ControladorIngresoVehiculo(AgregarVehiculo agregarVehiculo, int idTipoVehiculo, int idUsuario) {
-        this.agregarVehiculo = agregarVehiculo;
+    public ControladorIngresoVehiculo(SeleccionarVehiculo sV, int idTipoVehiculo, int idUsuario) {
+        this.agregarVehiculo = new AgregarVehiculo(sV, true);
+        System.out.println("SE CONSTRUYO");
+        this.agregarVehiculo.setVisible(true);
+        
+        this.agregarVehiculo.btnPrueba.addActionListener(this);
         this.agregarVehiculo.getjButtonValidarPlaca().addActionListener((ActionListener) this);
         this.agregarVehiculo.getjButtonAceptarIngreso().addActionListener((ActionListener) this);
         this.agregarVehiculo.getjButtonGenerar().addActionListener((ActionListener) this);
@@ -35,6 +40,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
     }
     
     public void validarVehiculo() {
+        System.out.println("APACHADO");
         String placa;
         placa = this.agregarVehiculo.getjTextPlaca().getText();
         this.vehiculo = this.vehiculoDao.buscarPorPlaca(placa, idTipoVehiculo);
@@ -79,14 +85,18 @@ public class ControladorIngresoVehiculo implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == agregarVehiculo.getjButtonValidarPlaca()) {
+        if (e.getSource() == this.agregarVehiculo.getjButtonValidarPlaca()) {
+            System.out.println("APACHADO");
             validarVehiculo();
         }
-        if (e.getSource() == agregarVehiculo.getjButtonAceptarIngreso()) {
+        if (e.getSource() == this.agregarVehiculo.getjButtonAceptarIngreso()) {
             ingresarNuevoVehiculo();
         }
-        if (e.getSource() == agregarVehiculo.getjButtonGenerar()) {
+        if (e.getSource() == this.agregarVehiculo.getjButtonGenerar()) {
             generarTicket();
+        }
+        if (e.getSource() == this.agregarVehiculo.btnPrueba) {
+            System.out.println("APACHO PRUEBA");
         }
     }
         
