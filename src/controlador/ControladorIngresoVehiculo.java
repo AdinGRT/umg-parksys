@@ -74,11 +74,23 @@ public class ControladorIngresoVehiculo implements ActionListener {
         int resultado = this.ticketDao.insertar(this.ticket);
         if (resultado == 1) {
             JOptionPane.showMessageDialog(null, "Ticket Generado.");
+            Ticket ultimoTicket = this.ticketDao.verUltimoTicket(1);
+            this.agregarVehiculo.setTxtaTicket(mostrarTicket(ultimoTicket, "CARRO O MOTO", this.agregarVehiculo.getjTextPlaca().getText()));
         }
         else
         {
             JOptionPane.showMessageDialog(null, "Ticket No Generado.");
         }
+    }
+    
+    public String mostrarTicket(Ticket ticket, String tipoVehiculo, String placa) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("---- TICKET ---").append("\n");
+        sb.append("Ticket No.: ").append("\t").append(ticket.getIdTicket()).append("\n");
+        sb.append("Tipo de Vehículo: ").append("\t").append(tipoVehiculo).append("\n");
+        sb.append("Placa de Vehículo: ").append("\t").append(placa).append("\n");
+        sb.append("Fecha y hora de ingreso: ").append("\t").append(ticket.getHorarioEntrada()).append("\n");
+        return sb.toString();
     }
     
     @Override

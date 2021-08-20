@@ -51,8 +51,8 @@ public class Ticket {
         return horarioSalida;
     }
     
-    public void setHorarioSalida() {
-        this.horarioSalida = this.obtenerHorario();
+    public void setHorarioSalida(String horarioSalida) {
+        this.horarioSalida = horarioSalida;
     }
 
     public String getHorarioEntrada() {
@@ -85,6 +85,14 @@ public class Ticket {
 
     public void setIdTicketStatus(int idTicketStatus) {
         this.idTicketStatus = idTicketStatus;
+    }
+
+    public double getMontoTicket() {
+        return montoTicket;
+    }
+
+    public void setMontoTicket(double montoTicket) {
+        this.montoTicket = montoTicket;
     }
     
     
