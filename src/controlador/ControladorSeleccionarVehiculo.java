@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import modelo.TipoVehiculo;
-import vista.AgregarVehiculo;
-import vista.AgregarVehiculo;
 import vista.SeleccionarVehiculo;
 
 /**
@@ -22,7 +20,7 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     private TipoVehiculo tipoVehiculo = new TipoVehiculo();
     private SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
     private int idUsuario;
-    //private AgregarVehiculo agregarVehiculo;
+    //private AgregarVehiculoDialog agregarVehiculo;
 
     public ControladorSeleccionarVehiculo(SeleccionarVehiculo seleccionarVehiculo, int idUsuario) {
         this.seleccionarVehiculo = seleccionarVehiculo;
@@ -33,12 +31,12 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     
     public void ingresarMoto() {
         JOptionPane.showMessageDialog(null, "MOTO");
-        ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(this.seleccionarVehiculo, 1, this.idUsuario);
+        ControladorIngresoVehiculo controlador = new ControladorIngresoVehiculo(this.seleccionarVehiculo, 1, this.idUsuario);
     } 
     
     public void ingresarCarro() {
         JOptionPane.showMessageDialog(null, "CARRO");
-        ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(this.seleccionarVehiculo, 2, this.idUsuario);
+        ControladorIngresoVehiculo controlador = new ControladorIngresoVehiculo(this.seleccionarVehiculo, 2, this.idUsuario);
     }
     
     @Override
