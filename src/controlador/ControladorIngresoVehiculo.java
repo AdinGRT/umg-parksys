@@ -15,15 +15,15 @@ import vista.AgregarVehiculo;
  * @author gian_
  */
 public class ControladorIngresoVehiculo implements ActionListener {
-    TipoVehiculo tipoVehiculo = new TipoVehiculo();
-    Vehiculo vehiculo = new Vehiculo();
-    VehiculoDAO vehiculoDao = new VehiculoDAO();
-    int idTipoVehiculo;
-    Ticket ticket = null;
-    TicketDAO ticketDao = null;
-    int idUsuario;
+    private TipoVehiculo tipoVehiculo = new TipoVehiculo();
+    private Vehiculo vehiculo = new Vehiculo();
+    private VehiculoDAO vehiculoDao = new VehiculoDAO();
+    private int idTipoVehiculo;
+    private Ticket ticket = null;
+    private TicketDAO ticketDao = null;
+    private int idUsuario;
     
-    AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
+    private AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
 
     public ControladorIngresoVehiculo(AgregarVehiculo agregarVehiculo, int idTipoVehiculo, int idUsuario) {
         this.agregarVehiculo = agregarVehiculo;
