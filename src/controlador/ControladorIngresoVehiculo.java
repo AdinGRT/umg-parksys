@@ -56,6 +56,9 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.vehiculo.setColor(this.agregarVehiculo.getjTextColor().getText());
         this.vehiculo.setIdTipoVehiculo(idTipoVehiculo);
         registrosGuardados = this.vehiculoDao.insertar(this.vehiculo);
+        String placa;
+        placa = this.agregarVehiculo.getjTextPlaca().getText();
+        this.vehiculo = this.vehiculoDao.buscarPorPlaca(placa, idTipoVehiculo);
         if (registrosGuardados == 1) {
             JOptionPane.showMessageDialog(null, "Vehiculo ingresado.");
         }
@@ -67,6 +70,10 @@ public class ControladorIngresoVehiculo implements ActionListener {
         int resultado = this.ticketDao.insertar(this.ticket);
         if (resultado == 1) {
             JOptionPane.showMessageDialog(null, "Ticket Generado.");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ticket No Generado.");
         }
     }
     

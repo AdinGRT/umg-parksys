@@ -7,6 +7,7 @@ import java.sql.*;
 import modelo.Ticket;
 import modelo.Vehiculo;
 import vista.AgregarVehiculo;
+import vista.IngresarVehiculo;
 
 /**
  *
@@ -68,9 +69,11 @@ public class Test {
         //DETERMINAR SI ESTA PAGADO
         //SI ESTA PAGADO DARLE SALIDA, UPDATE ticket STATUS A RECIBIDO(3)
         
-        AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
-        agregarVehiculo.setVisible(true);
-        ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
+        //AgregarVehiculo agregarVehiculo = new AgregarVehiculo();
+        //agregarVehiculo.setVisible(true);
+        //ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
+        IngresarVehiculo ingresarVehiculo = new IngresarVehiculo();
+        ingresarVehiculo.setVisible(true);
         
     }
     
