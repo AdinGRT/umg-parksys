@@ -15,6 +15,42 @@ public class VehiculoDAO {
     
     private static final String SQL_SELECT_PLACA = "SELECT * FROM vehiculo WHERE placa = ? AND id_tipo_vehiculo = ?";
     
+    private static final String SQL_SELECT_VEHICULO_STATUS = "SELECT vehiculo.placa, ticket.id_ticket, ticket_status.id_ticket_status, ticket_status.descripcion_ticket_status\n" +
+            "FROM ticket\n" +
+            "INNER JOIN vehiculo ON ticket.id_vehiculo = vehiculo.id_vehiculo\n" +
+            "INNER JOIN ticket_status ON ticket.id_ticket_status = ticket_status.id_ticket_status\n" +
+            "WHERE vehiculo.placa = ? AND ticket_status.id_ticket_status = ?\n" + 
+            "AND vehiculo.id_tipo_vehiculo = ?";
+    
+    public boolean verificarVehiculo(String placa, int idTicketStatus, int idTipoVehiculo) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_SELECT_VEHICULO_STATUS);
+            stmt.setString(1, placa);
+            stmt.setInt(2, idTicketStatus);
+            stmt.setInt(3, idTipoVehiculo);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
     public Vehiculo buscarPorPlaca(String placa, int idTipoVehiculo) {
         Connection conn = null;
         PreparedStatement stmt = null;

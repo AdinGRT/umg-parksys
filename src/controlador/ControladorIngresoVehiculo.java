@@ -16,6 +16,7 @@ import vista.SeleccionarVehiculo;
  * @author gian_
  */
 public class ControladorIngresoVehiculo implements ActionListener {
+
     private TipoVehiculo tipoVehiculo = new TipoVehiculo();
     private Vehiculo vehiculo = new Vehiculo();
     private VehiculoDAO vehiculoDao = new VehiculoDAO();
@@ -23,7 +24,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
     private Ticket ticket = null;
     private TicketDAO ticketDao = null;
     private int idUsuario;
-    
+
     private AgregarVehiculoDialog agregarVehiculo;
 
     public ControladorIngresoVehiculo(SeleccionarVehiculo sV, int idTipoVehiculo, int idUsuario) {
@@ -33,7 +34,9 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.agregarVehiculo.getjButtonValidarPlaca().addActionListener(this);
         this.agregarVehiculo.getjButtonAceptarIngreso().addActionListener(this);
         this.agregarVehiculo.getjButtonGenerarTicket().addActionListener(this);
+        this.agregarVehiculo.getjButtonCancelar().addActionListener(this);
         this.agregarVehiculo.setLocationRelativeTo(sV);
+        this.agregarVehiculo.setSize(500,400);
         this.agregarVehiculo.setResizable(false);
         this.setTipoVehiculo();
         this.agregarVehiculo.getjTextMarca().setEditable(false);
@@ -43,25 +46,31 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.agregarVehiculo.getjButtonAceptarIngreso().setEnabled(false);
         this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(false);
         this.agregarVehiculo.setVisible(true);
-        
+
     }
 
     public void setTipoVehiculo() {
-        if(this.idTipoVehiculo == 1) {
+        if (this.idTipoVehiculo == 1) {
             this.agregarVehiculo.setJlblTipoVehiculo("M0");
         } else if (this.idTipoVehiculo == 2) {
             this.agregarVehiculo.setJlblTipoVehiculo("P0");
         }
     }
-    
+
     public void validarVehiculo() {
         String placa;
         placa = this.agregarVehiculo.getjTextPlaca().getText();
         this.vehiculo = this.vehiculoDao.buscarPorPlaca(placa, idTipoVehiculo);
     }
-    
+
+    public boolean verificarVehiculoEnParqueo(String placa, int idTicketStatus) {
+        boolean vehiculoEnParqueo;
+        vehiculoEnParqueo = this.vehiculoDao.verificarVehiculo(placa, idTicketStatus, this.idTipoVehiculo);
+        return vehiculoEnParqueo;
+    }
+
     public void llenarCampos() {
-        if(this.vehiculo.getPlaca() == null) {
+        if (this.vehiculo.getPlaca() == null) {
             JOptionPane.showMessageDialog(null, "Vehiculo no registrado. Llena los campos.");
             this.agregarVehiculo.getjTextMarca().setEditable(true);
             this.agregarVehiculo.getjTextModelo().setEditable(true);
@@ -76,14 +85,14 @@ public class ControladorIngresoVehiculo implements ActionListener {
             this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(true);
         }
     }
-    
+
     public void limpiarCampos() {
         this.agregarVehiculo.setjTextMarca("");
         this.agregarVehiculo.setjTextModelo("");
         this.agregarVehiculo.setjTextColor("");
         this.agregarVehiculo.setTxtaTicket("");
     }
-    
+
     public void ingresarNuevoVehiculo() {
         int registrosGuardados;
         this.vehiculo.setPlaca(this.agregarVehiculo.getjTextPlaca().getText());
@@ -92,15 +101,16 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.vehiculo.setColor(this.agregarVehiculo.getjTextColor().getText());
         this.vehiculo.setIdTipoVehiculo(idTipoVehiculo);
         registrosGuardados = this.vehiculoDao.insertar(this.vehiculo);
-        String placa;
-        placa = this.agregarVehiculo.getjTextPlaca().getText();
-        this.vehiculo = this.vehiculoDao.buscarPorPlaca(placa, idTipoVehiculo);
         if (registrosGuardados == 1) {
             JOptionPane.showMessageDialog(null, "Vehiculo ingresado.");
+            this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(true);
+            this.agregarVehiculo.getjButtonAceptarIngreso().setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Algo salio mal.");
         }
     }
-    
-    public void generarTicket(){
+
+    public void generarTicket() {
         this.ticket = new Ticket(idUsuario, this.vehiculo.getIdVehiculo(), 1);
         this.ticketDao = new TicketDAO();
         int resultado = this.ticketDao.insertar(this.ticket);
@@ -114,11 +124,15 @@ public class ControladorIngresoVehiculo implements ActionListener {
                 vehiculo = "CARRO";
             }
             this.agregarVehiculo.setTxtaTicket(mostrarTicket(ultimoTicket, vehiculo, this.agregarVehiculo.getjTextPlaca().getText()));
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "Ticket No Generado.");
         }
+    }
+
+    public void cancelarIngreso() {
+        this.agregarVehiculo.setjTextPlaca("");
+        this.limpiarCampos();
+        this.agregarVehiculo.getjTextPlaca().setEditable(true);
     }
     
     public String mostrarTicket(Ticket ticket, String tipoVehiculo, String placa) {
@@ -130,13 +144,18 @@ public class ControladorIngresoVehiculo implements ActionListener {
         sb.append("Fecha y hora de ingreso: ").append("\n").append(ticket.getHorarioEntrada()).append("\n\n");
         return sb.toString();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.agregarVehiculo.getjButtonValidarPlaca()) {
             validarVehiculo();
-            limpiarCampos();
-            llenarCampos();
+            if (verificarVehiculoEnParqueo(this.vehiculo.getPlaca(), 1)) {
+                JOptionPane.showMessageDialog(null, "ALERTA! Vehículo aparece adentro del parqueo.");
+                this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(false);
+            } else {
+                this.limpiarCampos();
+                this.llenarCampos();
+            }
         }
         if (e.getSource() == this.agregarVehiculo.getjButtonAceptarIngreso()) {
             ingresarNuevoVehiculo();
@@ -145,6 +164,9 @@ public class ControladorIngresoVehiculo implements ActionListener {
         if (e.getSource() == this.agregarVehiculo.getjButtonGenerarTicket()) {
             generarTicket();
         }
+        if (e.getSource() == this.agregarVehiculo.getjButtonCancelar()) {
+            cancelarIngreso();
+        }
     }
-        
+
 }
