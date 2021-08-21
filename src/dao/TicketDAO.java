@@ -19,6 +19,62 @@ public class TicketDAO {
     
     private static final String SQL_SELECT_ULTIMO_TICKET = "SELECT * FROM ticket WHERE id_vehiculo = ? ORDER BY id_ticket DESC LIMIT 1";
     
+    private static final String SQL_SELECT_IDTICKET = "SELECT id_ticket_status FROM ticket WHERE id_ticket = ?";
+    
+    private static final String SQL_UPDATE_TICKETSTATUS = "UPDATE ticket SET id_ticket_status = ? WHERE id_ticket = ?";
+    
+    public int updateTicketStatus(int idTicketStatus, int idTicket) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_UPDATE_TICKETSTATUS);
+            
+            stmt.setInt(1, idTicketStatus);
+            stmt.setInt(2, idTicket);
+                        
+            rows = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rows;
+    }
+    
+    public int getTicketStatus(int idTicket) {
+        int status = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_SELECT_IDTICKET);
+            stmt.setInt(1, idTicket);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                status = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+        return status;
+    }
+    
     public Ticket verUltimoTicket(int idVehiculo) {
         Connection conn = null;
         PreparedStatement stmt = null;
