@@ -31,7 +31,6 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -39,11 +38,10 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
         jTextNombre = new javax.swing.JTextField();
         jTextApellido = new javax.swing.JTextField();
         jTextDPI = new javax.swing.JTextField();
-        jTextDireccion = new javax.swing.JTextField();
         jTextCorreo = new javax.swing.JTextField();
-        jTextUsuario = new javax.swing.JTextField();
-        jTextContraseña = new javax.swing.JTextField();
         jTextTelefono = new javax.swing.JTextField();
+        jTextUsuario = new javax.swing.JTextField();
+        jTextContrasenia = new javax.swing.JTextField();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
@@ -62,15 +60,13 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
 
         jLabel4.setText("No. DPI");
 
-        jLabel5.setText("Dirección:");
-
         jLabel6.setText("Correo electrónico:");
 
-        jLabel7.setText("Usuario:");
+        jLabel7.setText("Teléfono:");
 
-        jLabel8.setText("Contraseña:");
+        jLabel8.setText("Usuario:");
 
-        jLabel9.setText("Teléfono:");
+        jLabel9.setText("Contraseña:");
 
         jTextNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +112,6 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8)
@@ -129,11 +124,10 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                                             .addComponent(jTextNombre)
                                             .addComponent(jTextApellido)
                                             .addComponent(jTextDPI)
-                                            .addComponent(jTextDireccion)
                                             .addComponent(jTextCorreo)
+                                            .addComponent(jTextTelefono)
                                             .addComponent(jTextUsuario)
-                                            .addComponent(jTextContraseña)
-                                            .addComponent(jTextTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                                            .addComponent(jTextContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(7, 7, 7)
                                         .addComponent(jButtonGuardar)
@@ -176,24 +170,20 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(jTextDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSalir)
@@ -202,7 +192,7 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(jButtonNuevo)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,17 +219,15 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextApellido;
-    private javax.swing.JTextField jTextContraseña;
+    private javax.swing.JTextField jTextContrasenia;
     private javax.swing.JTextField jTextCorreo;
     private javax.swing.JTextField jTextDPI;
-    private javax.swing.JTextField jTextDireccion;
     private javax.swing.JTextArea jTextListado;
     private javax.swing.JTextField jTextNombre;
     private javax.swing.JTextField jTextTelefono;

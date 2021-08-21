@@ -30,7 +30,6 @@
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -44,11 +43,10 @@
                                           <Component id="jTextNombre" max="32767" attributes="0"/>
                                           <Component id="jTextApellido" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jTextDPI" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextDireccion" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jTextCorreo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextTelefono" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jTextUsuario" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextContraseña" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextTelefono" alignment="0" pref="150" max="32767" attributes="0"/>
+                                          <Component id="jTextContrasenia" alignment="0" pref="150" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -105,12 +103,7 @@
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextDPI" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="jTextCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -118,17 +111,17 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextContrasenia" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -141,7 +134,7 @@
                   <Component id="jButtonGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -167,11 +160,6 @@
         <Property name="text" type="java.lang.String" value="No. DPI"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Correo electr&#xf3;nico:"/>
@@ -179,17 +167,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Usuario:"/>
+        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
+        <Property name="text" type="java.lang.String" value="Usuario:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
+        <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextNombre">
@@ -201,15 +189,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextDPI">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextDireccion">
-    </Component>
     <Component class="javax.swing.JTextField" name="jTextCorreo">
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextTelefono">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextUsuario">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextContrase&#xf1;a">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextTelefono">
+    <Component class="javax.swing.JTextField" name="jTextContrasenia">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonNuevo">
       <Properties>
