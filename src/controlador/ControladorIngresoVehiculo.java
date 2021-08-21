@@ -35,21 +35,53 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.agregarVehiculo.getjButtonGenerarTicket().addActionListener(this);
         this.agregarVehiculo.setLocationRelativeTo(sV);
         this.agregarVehiculo.setResizable(false);
+        this.setTipoVehiculo();
+        this.agregarVehiculo.getjTextMarca().setEditable(false);
+        this.agregarVehiculo.getjTextModelo().setEditable(false);
+        this.agregarVehiculo.getjTextColor().setEditable(false);
+        this.agregarVehiculo.getTxtaTicket().setEditable(false);
+        this.agregarVehiculo.getjButtonAceptarIngreso().setEnabled(false);
+        this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(false);
         this.agregarVehiculo.setVisible(true);
+        
+    }
+
+    public void setTipoVehiculo() {
+        if(this.idTipoVehiculo == 1) {
+            this.agregarVehiculo.setJlblTipoVehiculo("M0");
+        } else if (this.idTipoVehiculo == 2) {
+            this.agregarVehiculo.setJlblTipoVehiculo("P0");
+        }
     }
     
     public void validarVehiculo() {
         String placa;
         placa = this.agregarVehiculo.getjTextPlaca().getText();
         this.vehiculo = this.vehiculoDao.buscarPorPlaca(placa, idTipoVehiculo);
-        this.agregarVehiculo.setjTextMarca(this.vehiculo.getMarca());
-        this.agregarVehiculo.setjTextModelo(this.vehiculo.getModelo());
-        this.agregarVehiculo.setjTextColor(this.vehiculo.getColor());
+    }
+    
+    public void llenarCampos() {
         if(this.vehiculo.getPlaca() == null) {
-            JOptionPane.showMessageDialog(null, "Vehiculo no existe.");
+            JOptionPane.showMessageDialog(null, "Vehiculo no registrado. Llena los campos.");
+            this.agregarVehiculo.getjTextMarca().setEditable(true);
+            this.agregarVehiculo.getjTextModelo().setEditable(true);
+            this.agregarVehiculo.getjTextColor().setEditable(true);
+            this.agregarVehiculo.getjButtonAceptarIngreso().setEnabled(true);
+            this.agregarVehiculo.getjTextPlaca().setEditable(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Vehiculo si existe.");
+            JOptionPane.showMessageDialog(null, "Vehiculo ya registrado.");
+            this.agregarVehiculo.setjTextMarca(this.vehiculo.getMarca());
+            this.agregarVehiculo.setjTextModelo(this.vehiculo.getModelo());
+            this.agregarVehiculo.setjTextColor(this.vehiculo.getColor());
+            this.agregarVehiculo.getjButtonGenerarTicket().setEnabled(true);
         }
+    }
+    
+    public void limpiarCampos() {
+        this.agregarVehiculo.setjTextMarca("");
+        this.agregarVehiculo.setjTextModelo("");
+        this.agregarVehiculo.setjTextColor("");
+        this.agregarVehiculo.setTxtaTicket("");
     }
     
     public void ingresarNuevoVehiculo() {
@@ -74,8 +106,14 @@ public class ControladorIngresoVehiculo implements ActionListener {
         int resultado = this.ticketDao.insertar(this.ticket);
         if (resultado == 1) {
             JOptionPane.showMessageDialog(null, "Ticket Generado.");
-            Ticket ultimoTicket = this.ticketDao.verUltimoTicket(1);
-            this.agregarVehiculo.setTxtaTicket(mostrarTicket(ultimoTicket, "CARRO O MOTO", this.agregarVehiculo.getjTextPlaca().getText()));
+            Ticket ultimoTicket = this.ticketDao.verUltimoTicket(this.vehiculo.getIdVehiculo());
+            String vehiculo = "";
+            if (idTipoVehiculo == 1) {
+                vehiculo = "MOTO";
+            } else if (idTipoVehiculo == 2) {
+                vehiculo = "CARRO";
+            }
+            this.agregarVehiculo.setTxtaTicket(mostrarTicket(ultimoTicket, vehiculo, this.agregarVehiculo.getjTextPlaca().getText()));
         }
         else
         {
@@ -97,9 +135,12 @@ public class ControladorIngresoVehiculo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.agregarVehiculo.getjButtonValidarPlaca()) {
             validarVehiculo();
+            limpiarCampos();
+            llenarCampos();
         }
         if (e.getSource() == this.agregarVehiculo.getjButtonAceptarIngreso()) {
             ingresarNuevoVehiculo();
+            validarVehiculo();
         }
         if (e.getSource() == this.agregarVehiculo.getjButtonGenerarTicket()) {
             generarTicket();

@@ -22,6 +22,8 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     private SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
     private int idUsuario;
     private TicketDAO ticketDao = new TicketDAO();
+    private int capacidadMotos = 50;
+    private int capacidadCarros = 70;
 
     public ControladorSeleccionarVehiculo(SeleccionarVehiculo seleccionarVehiculo, int idUsuario) {
         this.seleccionarVehiculo = seleccionarVehiculo;
@@ -29,6 +31,18 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
         this.seleccionarVehiculo.getjButtonMoto().addActionListener((ActionListener) this);
         this.seleccionarVehiculo.getjButtonCarro().addActionListener((ActionListener) this);
         this.seleccionarVehiculo.getjButtonRetirar().addActionListener((ActionListener) this);
+        this.disponibilidadVehiculos();
+    }
+    
+    
+    public void disponibilidadVehiculos() {
+        int motosDentro = this.ticketDao.contarVehiculos(1, 1);
+        int carrosDentro = this.ticketDao.contarVehiculos(2, 1);
+        int dispMotos = this.capacidadMotos - motosDentro;
+        int dispCarros = this.capacidadCarros - carrosDentro;
+        this.seleccionarVehiculo.setJlblMoto(""+dispMotos);
+        this.seleccionarVehiculo.setJlblCarro(""+dispCarros);
+        
     }
     
     public void ingresarMoto() {
@@ -42,7 +56,9 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     public void retirarVehiculoPorTicket() {
         int idTicket = Integer.parseInt(this.seleccionarVehiculo.getjTextTicket().getText());
         int ticketStatus = this.ticketDao.getTicketStatus(idTicket);
-        if (ticketStatus == 1) {
+        if (ticketStatus == 0) {
+            JOptionPane.showMessageDialog(null, "TICKET NO ENCONTRADO");
+        } else if (ticketStatus == 1) {
             JOptionPane.showMessageDialog(null, "TICKET NO PAGADO");
         } else if (ticketStatus == 2) {
             int rows = this.ticketDao.updateTicketStatus(3, idTicket);
@@ -60,12 +76,15 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == seleccionarVehiculo.getjButtonMoto()) {
             ingresarMoto();
+            disponibilidadVehiculos();
         }
         if (e.getSource() == seleccionarVehiculo.getjButtonCarro()) {
             ingresarCarro();
+            disponibilidadVehiculos();
         }
         if (e.getSource() == seleccionarVehiculo.getjButtonRetirar()) {
             retirarVehiculoPorTicket();
+            disponibilidadVehiculos();
         }
     }
     

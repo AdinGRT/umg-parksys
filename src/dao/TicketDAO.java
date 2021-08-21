@@ -23,6 +23,42 @@ public class TicketDAO {
     
     private static final String SQL_UPDATE_TICKETSTATUS = "UPDATE ticket SET id_ticket_status = ? WHERE id_ticket = ?";
     
+    private static final String SQL_COUNT_TICKETSTATUS = "SELECT COUNT(*) \n" +
+            "FROM ticket\n" +
+            "INNER JOIN vehiculo ON ticket.id_vehiculo = vehiculo.id_vehiculo\n" +
+            "INNER JOIN tipo_vehiculo ON vehiculo.id_tipo_vehiculo = tipo_vehiculo.id_tipo_vehiculo\n" +
+            "WHERE vehiculo.id_tipo_vehiculo = ? AND ticket.id_ticket_status = ?";
+    
+    public int contarVehiculos(int idTipoVehiculo, int idTicketStatus) {
+        int conteo = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_COUNT_TICKETSTATUS);
+            stmt.setInt(1, idTipoVehiculo);
+            stmt.setInt(2, idTicketStatus);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                conteo = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+        return conteo;
+    }
+    
+    
+    
     public int updateTicketStatus(int idTicketStatus, int idTicket) {
         Connection conn = null;
         PreparedStatement stmt = null;
