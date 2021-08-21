@@ -85,11 +85,11 @@ public class ControladorIngresoVehiculo implements ActionListener {
     
     public String mostrarTicket(Ticket ticket, String tipoVehiculo, String placa) {
         StringBuilder sb = new StringBuilder();
-        sb.append("---- TICKET ---").append("\n");
-        sb.append("Ticket No.: ").append("\t").append(ticket.getIdTicket()).append("\n");
-        sb.append("Tipo de Vehículo: ").append("\t").append(tipoVehiculo).append("\n");
-        sb.append("Placa de Vehículo: ").append("\t").append(placa).append("\n");
-        sb.append("Fecha y hora de ingreso: ").append("\t").append(ticket.getHorarioEntrada()).append("\n");
+        sb.append("-------- TICKET -------").append("\n\n");
+        sb.append("Ticket No.: ").append("\n").append(ticket.getIdTicket()).append("\n\n");
+        sb.append("Tipo de Vehículo: ").append("\n").append(tipoVehiculo).append("\n\n");
+        sb.append("Placa de Vehículo: ").append("\n").append(placa).append("\n\n");
+        sb.append("Fecha y hora de ingreso: ").append("\n").append(ticket.getHorarioEntrada()).append("\n\n");
         return sb.toString();
     }
     
