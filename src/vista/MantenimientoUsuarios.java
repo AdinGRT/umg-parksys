@@ -5,6 +5,9 @@
  */
 package vista;
 
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 /**
  *
  * @author bgfcm
@@ -233,4 +236,73 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextTelefono;
     private javax.swing.JTextField jTextUsuario;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getjButtonActualizar() {
+        return jButtonActualizar;
+    }
+
+    public JButton getjButtonBorrar() {
+        return jButtonBorrar;
+    }
+
+    public JButton getjButtonBuscar() {
+        return jButtonBuscar;
+    }
+
+    public JButton getjButtonCancelar() {
+        return jButtonCancelar;
+    }
+
+    public JButton getjButtonGuardar() {
+        return jButtonGuardar;
+    }
+
+    public JButton getjButtonNuevo() {
+        return jButtonNuevo;
+    }
+
+    public JButton getjButtonSalir() {
+        return jButtonSalir;
+    }
+
+    public JTextField getjTextApellido() {
+        return jTextApellido;
+    }
+
+    public JTextField getjTextCorreo() {
+        return jTextCorreo;
+    }
+
+    public JTextField getjTextDPI() {
+        return jTextDPI;
+    }
+
+    public JTextField getjTextNombre() {
+        return jTextNombre;
+    }
+
+    public JTextField getjTextTelefono() {
+        return jTextTelefono;
+    }
+
+    public void setjTextApellido(String jTextApellido) {
+        this.jTextApellido.setText(jTextApellido);
+    }
+
+    public void setjTextCorreo(String jTextCorreo) {
+        this.jTextCorreo.setText(jTextCorreo);
+    }
+
+    public void setjTextDPI(String jTextDPI) {
+        this.jTextDPI.setText(jTextDPI);
+    }
+
+    public void setjTextNombre(String jTextNombre) {
+        this.jTextNombre.setText(jTextNombre);
+    }
+
+    public void setjTextTelefono(String jTextTelefono) {
+        this.jTextTelefono.setText(jTextTelefono);
+    }
+    
 }

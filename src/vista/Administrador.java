@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.ControladorUsuarios;
 import javax.swing.JInternalFrame;
 
 /**
@@ -102,6 +103,7 @@ public class Administrador extends javax.swing.JFrame {
     private void mnuManteUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuManteUsuariosActionPerformed
         // TODO add your handling code here:
         MantenimientoUsuarios mantenimientoUsuarios = new MantenimientoUsuarios();
+        ControladorUsuarios controladorUsuarios = new ControladorUsuarios(mantenimientoUsuarios);
         centrarVentana(mantenimientoUsuarios);
     }//GEN-LAST:event_mnuManteUsuariosActionPerformed
 
