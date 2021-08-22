@@ -1,12 +1,14 @@
 package main;
 
 import controlador.ControladorIngresoVehiculo;
+import controlador.ControladorLogin;
 import controlador.ControladorSeleccionarVehiculo;
 import dao.TicketDAO;
 import dao.VehiculoDAO;
 import java.sql.*;
 import modelo.Ticket;
 import modelo.Vehiculo;
+import vista.Login;
 import vista.SeleccionarVehiculo;
 
 /**
@@ -72,10 +74,13 @@ public class Test {
         //AgregarVehiculo agregarVehiculo = new AgregarVehiculoDialog();
         //agregarVehiculo.setVisible(true);
         //ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
-        SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
-        seleccionarVehiculo.setVisible(true);
-        ControladorSeleccionarVehiculo conSeleV = new ControladorSeleccionarVehiculo(seleccionarVehiculo, 1);
-
+//        SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
+//        seleccionarVehiculo.setVisible(true);
+//        ControladorSeleccionarVehiculo conSeleV = new ControladorSeleccionarVehiculo(seleccionarVehiculo, 1);
+          Login login = new Login();
+          login.setVisible(true);
+          ControladorLogin controlador = new ControladorLogin(login);
+          
     }
     
 }
