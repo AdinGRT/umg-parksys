@@ -13,6 +13,8 @@ public class Conexion {
     
     public static Connection conectar() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASS);
+        
+        
     }
     
     public static void desconectar(ResultSet rs) throws SQLException {
