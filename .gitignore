@@ -25,6 +25,8 @@ nbdist/
 
 nbactions.xml
 nb-configuration.xml
+/nbactions.xml
+/nb-configuration.xml
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans,maven,java
