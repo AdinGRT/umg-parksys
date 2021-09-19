@@ -36,6 +36,7 @@ public class Administrador extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         mnuManteUsuarios = new javax.swing.JMenuItem();
+        mnuMantTarifas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +78,14 @@ public class Administrador extends javax.swing.JFrame {
         });
         jMenu2.add(mnuManteUsuarios);
 
+        mnuMantTarifas.setText("Tarifas");
+        mnuMantTarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMantTarifasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuMantTarifas);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -105,6 +114,12 @@ public class Administrador extends javax.swing.JFrame {
         ControladorUsuarios controladorUsuarios = new ControladorUsuarios(mantenimientoUsuarios);
         centrarVentana(mantenimientoUsuarios);
     }//GEN-LAST:event_mnuManteUsuariosActionPerformed
+
+    private void mnuMantTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMantTarifasActionPerformed
+        // TODO add your handling code here:
+        MantenimientoTarifas mantenimientoTarifas = new MantenimientoTarifas();
+        centrarVentana(mantenimientoTarifas);
+    }//GEN-LAST:event_mnuMantTarifasActionPerformed
 
     public void centrarVentana(JInternalFrame frame) {
         jDesktopPane1.add(frame);
@@ -152,6 +167,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem mnuMantTarifas;
     private javax.swing.JMenuItem mnuManteUsuarios;
     // End of variables declaration//GEN-END:variables
 }
