@@ -9,7 +9,7 @@ import java.sql.*;
 import com.analisisii.modelo.Ticket;
 import com.analisisii.modelo.Vehiculo;
 import com.analisisii.vista.Login;
-import com.analisisii.vista.SeleccionarVehiculo;
+import com.analisisii.vista.PantallaTodoEnUno;
 
 /**
  *
@@ -74,7 +74,7 @@ public class Main {
         //AgregarVehiculo agregarVehiculo = new AgregarVehiculoDialog();
         //agregarVehiculo.setVisible(true);
         //ControladorIngresoVehiculo conInVe = new ControladorIngresoVehiculo(agregarVehiculo, 2, 1);
-//        SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
+//        PantallaTodoEnUno seleccionarVehiculo = new PantallaTodoEnUno();
 //        seleccionarVehiculo.setVisible(true);
 //        ControladorSeleccionarVehiculo conSeleV = new ControladorSeleccionarVehiculo(seleccionarVehiculo, 1);
           Login login = new Login();

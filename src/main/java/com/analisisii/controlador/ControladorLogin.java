@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import com.analisisii.modelo.UsuarioLogin;
 import com.analisisii.vista.Administrador;
 import com.analisisii.vista.Login;
-import com.analisisii.vista.SeleccionarVehiculo;
+import com.analisisii.vista.PantallaTodoEnUno;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ControladorLogin implements ActionListener {
                 this.pantallaLogin.dispose();
                 
             } else if(this.usuarioLogin.getIdRol() == 2) {
-                SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
+                PantallaTodoEnUno seleccionarVehiculo = new PantallaTodoEnUno();
                 seleccionarVehiculo.setVisible(true);
                 this.pantallaLogin.dispose();                
                 ControladorSeleccionarVehiculo conSeleV = new ControladorSeleccionarVehiculo(seleccionarVehiculo, 1);

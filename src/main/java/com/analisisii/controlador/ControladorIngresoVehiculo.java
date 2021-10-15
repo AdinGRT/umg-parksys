@@ -9,7 +9,7 @@ import com.analisisii.modelo.Ticket;
 import com.analisisii.modelo.TipoVehiculo;
 import com.analisisii.modelo.Vehiculo;
 import com.analisisii.vista.AgregarVehiculoDialog;
-import com.analisisii.vista.SeleccionarVehiculo;
+import com.analisisii.vista.PantallaTodoEnUno;
 
 /**
  *
@@ -27,7 +27,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
 
     private AgregarVehiculoDialog agregarVehiculo;
 
-    public ControladorIngresoVehiculo(SeleccionarVehiculo sV, int idTipoVehiculo, int idUsuario) {
+    public ControladorIngresoVehiculo(PantallaTodoEnUno sV, int idTipoVehiculo, int idUsuario) {
         this.idTipoVehiculo = idTipoVehiculo;
         this.idUsuario = idUsuario;
         this.agregarVehiculo = new AgregarVehiculoDialog(sV, true);

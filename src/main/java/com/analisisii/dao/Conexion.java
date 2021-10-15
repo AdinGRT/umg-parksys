@@ -7,7 +7,7 @@ import java.sql.*;
  * @author gian_
  */
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/parqueo?useSSL=false&useTimezone=true&serverTimezone=GMT-6&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/parqueo1?useSSL=false&useTimezone=true&serverTimezone=GMT-6&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASS = "";
     

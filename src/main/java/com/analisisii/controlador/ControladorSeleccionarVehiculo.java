@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import com.analisisii.modelo.TipoVehiculo;
-import com.analisisii.vista.SeleccionarVehiculo;
+import com.analisisii.vista.PantallaTodoEnUno;
 
 /**
  *
@@ -19,13 +19,13 @@ import com.analisisii.vista.SeleccionarVehiculo;
 public class ControladorSeleccionarVehiculo implements ActionListener {
     
     private TipoVehiculo tipoVehiculo = new TipoVehiculo();
-    private SeleccionarVehiculo seleccionarVehiculo = new SeleccionarVehiculo();
+    private PantallaTodoEnUno seleccionarVehiculo = new PantallaTodoEnUno();
     private int idUsuario;
     private TicketDAO ticketDao = new TicketDAO();
     private int capacidadMotos = 50;
     private int capacidadCarros = 70;
 
-    public ControladorSeleccionarVehiculo(SeleccionarVehiculo seleccionarVehiculo, int idUsuario) {
+    public ControladorSeleccionarVehiculo(PantallaTodoEnUno seleccionarVehiculo, int idUsuario) {
         this.seleccionarVehiculo = seleccionarVehiculo;
         this.idUsuario = idUsuario;
         this.seleccionarVehiculo.getjButtonMoto().addActionListener((ActionListener) this);
