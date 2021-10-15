@@ -1,7 +1,7 @@
 package com.serverparksys.main;
 
 import com.serverparksys.dao.TarifaDAO;
-import com.serverparksys.modelo.Tarifa;
+import com.serverparksys.modelo.Tarifario;
 import java.util.List;
 
 /**
@@ -11,9 +11,9 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) {
         
-        Tarifa tarifa = new Tarifa(1, 5.0);
+        Tarifario tarifa = new Tarifario(1, 5.0);
         TarifaDAO tarifaDao = new TarifaDAO();
-        List<Tarifa> tarifas = tarifaDao.verTarifas();
+        List<Tarifario> tarifas = tarifaDao.verTarifas();
         System.out.println(tarifas);
         tarifaDao.actualizarTarifa(tarifa);
         tarifas = tarifaDao.verTarifas();

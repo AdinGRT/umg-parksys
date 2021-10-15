@@ -6,7 +6,7 @@
 package com.serverparksys.vista;
 
 import com.serverparksys.dao.TarifaDAO;
-import com.serverparksys.modelo.Tarifa;
+import com.serverparksys.modelo.Tarifario;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +34,7 @@ public class MantenimientoTarifas extends javax.swing.JInternalFrame {
     public void actualizarTarifa(){
         int id = Integer.parseInt(this.txtIdTarifa.getText());
         double monto = Double.parseDouble(this.txtMonto.getText());
-        Tarifa tarifa = new Tarifa(id, monto);
+        Tarifario tarifa = new Tarifario(id, monto);
         tarifaDao.actualizarTarifa(tarifa);
     }
     
@@ -58,7 +58,7 @@ public class MantenimientoTarifas extends javax.swing.JInternalFrame {
         modelo.addColumn("MONTO");
         tablaDatos.setModel(modelo);
         Object[] columna = new Object[4];
-        List<Tarifa> tarifas = tarifaDao.verTarifas();
+        List<Tarifario> tarifas = tarifaDao.verTarifas();
         int numRegistro = tarifas.size();
         for (int i = 0; i < numRegistro; i++) {
             columna[0] = tarifas.get(i).getIdTarifa();

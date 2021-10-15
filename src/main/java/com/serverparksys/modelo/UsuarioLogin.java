@@ -1,5 +1,7 @@
 package com.serverparksys.modelo;
 
+import com.serverparksys.constantes.TipoDeRol;
+
 /**
  *
  * @author gian_
@@ -7,7 +9,7 @@ package com.serverparksys.modelo;
 public class UsuarioLogin {
     private String nombreUsuario;
     private String passwordUsuario;
-    private int idRol;
+    private TipoDeRol tipoRol;
 
     public UsuarioLogin() {
     }
@@ -28,17 +30,22 @@ public class UsuarioLogin {
         this.passwordUsuario = passwordUsuario;
     }
 
-    public int getIdRol() {
-        return idRol;
+    public TipoDeRol getTipoRol() {
+        return tipoRol;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
+    public void setTipoRol(TipoDeRol tipoRol) {
+        this.tipoRol = tipoRol;
     }
 
     @Override
     public String toString() {
-        return "UsuarioLogin{" + "nombreUsuario=" + nombreUsuario + ", passwordUsuario=" + passwordUsuario + ", idRol=" + idRol + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("UsuarioLogin{nombreUsuario=").append(nombreUsuario);
+        sb.append(", passwordUsuario=").append(passwordUsuario);
+        sb.append(", tipoRol=").append(tipoRol.name());
+        sb.append('}');
+        return sb.toString();
     }
     
     

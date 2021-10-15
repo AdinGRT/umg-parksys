@@ -1,8 +1,6 @@
 package com.serverparksys.dao;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.serverparksys.modelo.Vehiculo;
 
 /**
@@ -64,7 +62,7 @@ public class VehiculoDAO {
             rs = stmt.executeQuery();
             while(rs.next()) {
                 vehiculo.setIdVehiculo(rs.getInt(1));
-                vehiculo.setPlaca(rs.getString(2));
+                vehiculo.setMatricula(rs.getString(2));
                 vehiculo.setMarca(rs.getString(3));
                 vehiculo.setModelo(rs.getString(4));
                 vehiculo.setColor(rs.getString(5));
@@ -92,11 +90,11 @@ public class VehiculoDAO {
         try {
             conn = Conexion.conectar();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, vehiculo.getPlaca());
+            stmt.setString(1, vehiculo.getMatricula());
             stmt.setString(2, vehiculo.getMarca());
             stmt.setString(3, vehiculo.getModelo());
             stmt.setString(4, vehiculo.getColor());
-            stmt.setInt(5, vehiculo.getIdTipoVehiculo());
+            stmt.setInt(5, vehiculo.getTipoVehiculo().ordinal());
             
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {

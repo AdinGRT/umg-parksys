@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.serverparksys.modelo.Ticket;
+import com.serverparksys.modelo.TicketDeParqueo;
 import com.serverparksys.modelo.Vehiculo;
 
 /**
@@ -111,11 +111,11 @@ public class TicketDAO {
         return status;
     }
     
-    public Ticket verUltimoTicket(int idVehiculo) {
+    public TicketDeParqueo verUltimoTicket(int idVehiculo) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Ticket ticket = new Ticket();
+        TicketDeParqueo ticket = new TicketDeParqueo();
         try {
             conn = Conexion.conectar();
             stmt = conn.prepareStatement(SQL_SELECT_ULTIMO_TICKET);
@@ -147,7 +147,7 @@ public class TicketDAO {
     }
         
         
-    public int insertar(Ticket ticket) {
+    public int insertar(TicketDeParqueo ticket) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -173,7 +173,7 @@ public class TicketDAO {
         return rows;
     }
     
-    public int actualizar(Ticket ticket) {
+    public int actualizar(TicketDeParqueo ticket) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;

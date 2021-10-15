@@ -6,7 +6,7 @@ import com.serverparksys.controlador.ControladorSeleccionarVehiculo;
 import com.serverparksys.dao.TicketDAO;
 import com.serverparksys.dao.VehiculoDAO;
 import java.sql.*;
-import com.serverparksys.modelo.Ticket;
+import com.serverparksys.modelo.TicketDeParqueo;
 import com.serverparksys.modelo.Vehiculo;
 import com.serverparksys.vista.Login;
 import com.serverparksys.vista.PantallaTodoEnUno;
@@ -26,7 +26,7 @@ public class Main {
 //
 //        System.out.println(resultado);
 
-//        Ticket ticket = new Ticket(1, 1, 2);
+//        TicketDeParqueo ticket = new TicketDeParqueo(1, 1, 2);
 //        System.out.println(ticket.getHorarioEntrada());
 //        
 //        TicketDAO ticketDao = new TicketDAO();
@@ -49,7 +49,7 @@ public class Main {
             
             
         //DETERMINAR HORARIO DE SALIDA
-//        Ticket ticket = new Ticket();
+//        TicketDeParqueo ticket = new TicketDeParqueo();
 //        
 //        ticket.setIdTicket(2);
 //        ticket.setHorarioSalida();

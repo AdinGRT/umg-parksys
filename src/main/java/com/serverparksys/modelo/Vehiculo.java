@@ -1,32 +1,29 @@
 package com.serverparksys.modelo;
-
+import com.serverparksys.constantes.TipoDeVehiculo;
 /**
  *
  * @author gian_
  */
 public class Vehiculo {
-    private int idVehiculo;
-    private String placa;
+    private Integer idVehiculo;
+    private String matricula;
     private String marca;
     private String modelo;
     private String color;
-    private int idTipoVehiculo;
+    private TipoDeVehiculo tipoVehiculo;
 
     public Vehiculo() {
     }
 
-    public Vehiculo(String placa, String marca, String modelo, String color, int codTipoVehiculo) {
-        this.placa = placa;
+    public Vehiculo(int idVehiculo, String matricula, String marca, String modelo, String color, TipoDeVehiculo tipoVehiculo) {
+        this.idVehiculo = idVehiculo;
+        this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
-        this.idTipoVehiculo = codTipoVehiculo;
+        this.tipoVehiculo = tipoVehiculo;
     }
 
-   
-
-    
-    
     public int getIdVehiculo() {
         return idVehiculo;
     }
@@ -35,12 +32,12 @@ public class Vehiculo {
         this.idVehiculo = idVehiculo;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     public String getMarca() {
@@ -67,13 +64,24 @@ public class Vehiculo {
         this.color = color;
     }
 
-    public int getIdTipoVehiculo() {
-        return idTipoVehiculo;
+    public TipoDeVehiculo getTipoVehiculo() {
+        return tipoVehiculo;
     }
 
-    public void setIdTipoVehiculo(int idTipoVehiculo) {
-        this.idTipoVehiculo = idTipoVehiculo;
+    public void setTipoVehiculo(TipoDeVehiculo tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vehiculo{idVehiculo=").append(idVehiculo);
+        sb.append(", matricula=").append(matricula);
+        sb.append(", tipoVehiculo=").append(tipoVehiculo.name());
+        sb.append('}');
+        return sb.toString();
+    }
+
     
     
 }

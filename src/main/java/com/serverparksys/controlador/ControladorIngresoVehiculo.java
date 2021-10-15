@@ -5,7 +5,7 @@ import com.serverparksys.dao.VehiculoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import com.serverparksys.modelo.Ticket;
+import com.serverparksys.modelo.TicketDeParqueo;
 import com.serverparksys.modelo.TipoVehiculo;
 import com.serverparksys.modelo.Vehiculo;
 import com.serverparksys.vista.AgregarVehiculoDialog;
@@ -21,7 +21,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
     private Vehiculo vehiculo = new Vehiculo();
     private VehiculoDAO vehiculoDao = new VehiculoDAO();
     private int idTipoVehiculo;
-    private Ticket ticket = null;
+    private TicketDeParqueo ticket = null;
     private TicketDAO ticketDao = null;
     private int idUsuario;
 
@@ -111,12 +111,12 @@ public class ControladorIngresoVehiculo implements ActionListener {
     }
 
     public void generarTicket() {
-        this.ticket = new Ticket(idUsuario, this.vehiculo.getIdVehiculo(), 1);
+        this.ticket = new TicketDeParqueo(idUsuario, this.vehiculo.getIdVehiculo(), 1);
         this.ticketDao = new TicketDAO();
         int resultado = this.ticketDao.insertar(this.ticket);
         if (resultado == 1) {
             JOptionPane.showMessageDialog(null, "Ticket Generado.");
-            Ticket ultimoTicket = this.ticketDao.verUltimoTicket(this.vehiculo.getIdVehiculo());
+            TicketDeParqueo ultimoTicket = this.ticketDao.verUltimoTicket(this.vehiculo.getIdVehiculo());
             String vehiculo = "";
             if (idTipoVehiculo == 1) {
                 vehiculo = "MOTO";
@@ -135,7 +135,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
         this.agregarVehiculo.getjTextPlaca().setEditable(true);
     }
     
-    public String mostrarTicket(Ticket ticket, String tipoVehiculo, String placa) {
+    public String mostrarTicket(TicketDeParqueo ticket, String tipoVehiculo, String placa) {
         StringBuilder sb = new StringBuilder();
         sb.append("-------- TICKET -------").append("\n\n");
         sb.append("Ticket No.: ").append("\n").append(ticket.getIdTicket()).append("\n\n");

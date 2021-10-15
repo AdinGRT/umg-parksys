@@ -1,6 +1,6 @@
 package com.serverparksys.dao;
 
-import com.serverparksys.modelo.Tarifa;
+import com.serverparksys.modelo.Tarifario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URL;
@@ -23,18 +23,18 @@ public class TarifaDAO {
     private static String baseURI = "http://localhost:8080/tarifas-parksys/api/tarifas";
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
-    public List<Tarifa> verTarifas() {
-        ArrayList<Tarifa> tarifas = null;
+    public List<Tarifario> verTarifas() {
+        ArrayList<Tarifario> tarifas = null;
         try {
             tarifas = JSON_MAPPER.readValue(new URL("http://localhost:8080/tarifas-parksys/api/tarifas"),
-                    JSON_MAPPER.getTypeFactory().constructCollectionType(ArrayList.class, Tarifa.class));
+                    JSON_MAPPER.getTypeFactory().constructCollectionType(ArrayList.class, Tarifario.class));
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
         return tarifas;
     }
 
-    public void actualizarTarifa(Tarifa tarifa) {
+    public void actualizarTarifa(Tarifario tarifa) {
         WebTarget target = getWebTarget();
         
         String id = tarifa.getIdTarifa().toString();
