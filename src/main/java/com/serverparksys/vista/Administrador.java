@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.analisisii.vista;
+package com.serverparksys.vista;
 
-import com.analisisii.controlador.ControladorUsuarios;
+import com.serverparksys.controlador.ControladorUsuarios;
 import javax.swing.JInternalFrame;
 
 /**

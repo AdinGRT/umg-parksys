@@ -1,4 +1,4 @@
-package com.analisisii.modelo;
+package com.serverparksys.modelo;
 
 /**
  *

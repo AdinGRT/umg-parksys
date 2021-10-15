@@ -1,4 +1,4 @@
-package com.analisisii.modelo;
+package com.serverparksys.modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

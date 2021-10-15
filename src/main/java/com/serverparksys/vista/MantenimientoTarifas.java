@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.analisisii.vista;
+package com.serverparksys.vista;
 
-import com.analisisii.dao.TarifaDAO;
-import com.analisisii.modelo.Tarifa;
+import com.serverparksys.dao.TarifaDAO;
+import com.serverparksys.modelo.Tarifa;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

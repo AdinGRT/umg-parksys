@@ -1,9 +1,9 @@
-package com.analisisii.dao;
+package com.serverparksys.dao;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.analisisii.modelo.Vehiculo;
+import com.serverparksys.modelo.Vehiculo;
 
 /**
  *

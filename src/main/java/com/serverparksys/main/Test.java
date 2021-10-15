@@ -1,7 +1,7 @@
-package com.analisisii.main;
+package com.serverparksys.main;
 
-import com.analisisii.dao.TarifaDAO;
-import com.analisisii.modelo.Tarifa;
+import com.serverparksys.dao.TarifaDAO;
+import com.serverparksys.modelo.Tarifa;
 import java.util.List;
 
 /**

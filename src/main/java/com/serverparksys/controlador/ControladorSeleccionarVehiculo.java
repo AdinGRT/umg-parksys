@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.analisisii.controlador;
+package com.serverparksys.controlador;
 
-import com.analisisii.dao.TicketDAO;
+import com.serverparksys.dao.TicketDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import com.analisisii.modelo.TipoVehiculo;
-import com.analisisii.vista.PantallaTodoEnUno;
+import com.serverparksys.modelo.TipoVehiculo;
+import com.serverparksys.vista.PantallaTodoEnUno;
 
 /**
  *

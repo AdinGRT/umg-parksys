@@ -1,11 +1,11 @@
-package com.analisisii.dao;
+package com.serverparksys.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.analisisii.modelo.Ticket;
-import com.analisisii.modelo.Vehiculo;
+import com.serverparksys.modelo.Ticket;
+import com.serverparksys.modelo.Vehiculo;
 
 /**
  *

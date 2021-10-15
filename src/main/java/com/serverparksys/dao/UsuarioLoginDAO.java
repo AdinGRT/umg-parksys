@@ -1,11 +1,11 @@
-package com.analisisii.dao;
+package com.serverparksys.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.analisisii.modelo.Usuario;
-import com.analisisii.modelo.UsuarioLogin;
+import com.serverparksys.modelo.Usuario;
+import com.serverparksys.modelo.UsuarioLogin;
 
 /**
  *

@@ -1,6 +1,6 @@
-package com.analisisii.dao;
+package com.serverparksys.dao;
 
-import com.analisisii.modelo.Tarifa;
+import com.serverparksys.modelo.Tarifa;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URL;
