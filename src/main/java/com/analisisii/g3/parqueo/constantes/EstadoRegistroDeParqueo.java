@@ -5,8 +5,8 @@ package com.analisisii.g3.parqueo.constantes;
  * @author gian_
  */
 public enum EstadoRegistroDeParqueo {
-    ACTIVO("Adentro del parqueo."), PAGADO("Tarifa pagada."),
-    INACTIVO("Salio del parqueo."), PERDIDO("Ticket Extraviado");
+    ERROR ("Estado no valido"), ACTIVO("Adentro del parqueo."), PAGADO("Tarifa pagada."),
+    INACTIVO("Salio del parqueo."), EXTRAVIADO("Ticket Extraviado");
 
     private String descripcion;
 

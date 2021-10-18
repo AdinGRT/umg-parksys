@@ -1,6 +1,6 @@
 package com.analisisii.g3.parqueo.controlador;
 
-import com.analisisii.g3.parqueo.dao.TicketDAO;
+import com.analisisii.g3.parqueo.dao.RegistroDeParqueoDAO;
 import com.analisisii.g3.parqueo.dao.VehiculoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +22,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
     private VehiculoDAO vehiculoDao = new VehiculoDAO();
     private int idTipoVehiculo;
     private RegistroDeParqueo ticket = null;
-    private TicketDAO ticketDao = null;
+    private RegistroDeParqueoDAO ticketDao = null;
     private int idUsuario;
 
     private AgregarVehiculoDialog agregarVehiculo;
@@ -112,7 +112,7 @@ public class ControladorIngresoVehiculo implements ActionListener {
 
     public void generarTicket() {
         this.ticket = new RegistroDeParqueo(idUsuario, this.vehiculo.getIdVehiculo(), 1);
-        this.ticketDao = new TicketDAO();
+        this.ticketDao = new RegistroDeParqueoDAO();
         int resultado = this.ticketDao.insertar(this.ticket);
         if (resultado == 1) {
             JOptionPane.showMessageDialog(null, "Ticket Generado.");

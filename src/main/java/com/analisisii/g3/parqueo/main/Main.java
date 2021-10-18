@@ -3,7 +3,7 @@ package com.analisisii.g3.parqueo.main;
 import com.analisisii.g3.parqueo.controlador.ControladorIngresoVehiculo;
 import com.analisisii.g3.parqueo.controlador.ControladorLogin;
 import com.analisisii.g3.parqueo.controlador.ControladorSeleccionarVehiculo;
-import com.analisisii.g3.parqueo.dao.TicketDAO;
+import com.analisisii.g3.parqueo.dao.RegistroDeParqueoDAO;
 import com.analisisii.g3.parqueo.dao.VehiculoDAO;
 import java.sql.*;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
@@ -29,7 +29,7 @@ public class Main {
 //        RegistroDeParqueo ticket = new RegistroDeParqueo(1, 1, 2);
 //        System.out.println(ticket.getHorarioEntrada());
 //        
-//        TicketDAO ticketDao = new TicketDAO();
+//        RegistroDeParqueoDAO ticketDao = new RegistroDeParqueoDAO();
 //        
 //        int resultado = ticketDao.insertar(ticket);
 //        
@@ -55,7 +55,7 @@ public class Main {
 //        ticket.setHorarioSalida();
 //        System.out.println(ticket.getHorarioSalida());
 //        
-//        TicketDAO ticketDao = new TicketDAO();
+//        RegistroDeParqueoDAO ticketDao = new RegistroDeParqueoDAO();
 //        
 //        int resultado = ticketDao.actualizar(ticket);
         

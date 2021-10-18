@@ -5,6 +5,7 @@ import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
 import com.analisisii.g3.parqueo.modelo.Tarifario;
 import com.analisisii.g3.parqueo.modelo.Vehiculo;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -25,24 +26,25 @@ public class Parqueo implements ParqueoInterface {
     private HashMap<String, Panel> panelesDeEntrada;
     private HashMap<String, Panel> panelesDeSalida;
     
-    private HashMap<String, Vehiculo> vehiculosEnParqueo;
-    private HashMap<String, RegistroDeParqueo> registrosDeParqueoActivos;
+    //private HashMap<String, Vehiculo> vehiculosEnParqueo;
+    private Map<String, RegistroDeParqueo> registrosDeParqueoActivos;
     
     private static Parqueo parqueo = null;
 
-    private Parqueo(int maximoVehiculos, int maximoMotocicletas) {
-        //Inicializar provisionalmente
-        this.nombreEstacionamiento = "Parqueo Grupo 3";
-        this.direccion = "4ta Av. Zona 1";
-        this.registrosDeParqueoActivos = new HashMap();
-        this.vehiculosEnParqueo = new HashMap();
+    private Parqueo(String nombreEstacionamiento, String direccion, int contadorParticulares, int contadorMotocicletas, int maximoVehiculos, int maximoMotocicletas, Map<String, RegistroDeParqueo> registrosDeParqueoActivos) {
+        this.nombreEstacionamiento = nombreEstacionamiento;
+        this.direccion = direccion;
+        this.contadorParticulares = contadorParticulares;
+        this.contadorMotocicletas = contadorMotocicletas;
         this.maximoVehiculos = maximoVehiculos;
         this.maximoMotocicletas = maximoMotocicletas;
+        this.registrosDeParqueoActivos = registrosDeParqueoActivos;
     }
 
-    public static synchronized Parqueo obtenerInstanciaDeParqueo() {
+
+    public static synchronized Parqueo obtenerInstanciaDeParqueo(String nombreEstacionamiento, String direccion, int contadorParticulares, int contadorMotocicletas, int maximoVehiculos, int maximoMotocicletas, Map<String, RegistroDeParqueo> registrosDeParqueoActivos) {
         if (parqueo == null) {
-            parqueo = new Parqueo(20, 20);
+            parqueo = new Parqueo(nombreEstacionamiento, direccion, contadorParticulares, contadorMotocicletas, maximoVehiculos, maximoMotocicletas, registrosDeParqueoActivos);
         }
         return parqueo;
     }
@@ -53,11 +55,9 @@ public class Parqueo implements ParqueoInterface {
             System.out.println("EL PARQUEO SE ENCUENTRA EN SU CAPACIDAD MAXIMA.");
         }
         RegistroDeParqueo registro = new RegistroDeParqueo();
-        //System.out.println(registro);
         vehiculo.setRegistroDeParqueo(registro);
         
-        this.registrosDeParqueoActivos.put("nada", registro);
-        this.vehiculosEnParqueo.put(vehiculo.getMatricula(), vehiculo);
+        this.registrosDeParqueoActivos.put(vehiculo.getMatricula(), registro);
         this.incrementarContadoresPorTipo(vehiculo.getTipoVehiculo());
         
         return registro;

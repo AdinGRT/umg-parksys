@@ -5,7 +5,7 @@
  */
 package com.analisisii.g3.parqueo.controlador;
 
-import com.analisisii.g3.parqueo.dao.TicketDAO;
+import com.analisisii.g3.parqueo.dao.RegistroDeParqueoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -21,7 +21,7 @@ public class ControladorSeleccionarVehiculo implements ActionListener {
     private TipoVehiculo tipoVehiculo = new TipoVehiculo();
     private PantallaTodoEnUno seleccionarVehiculo = new PantallaTodoEnUno();
     private int idUsuario;
-    private TicketDAO ticketDao = new TicketDAO();
+    private RegistroDeParqueoDAO ticketDao = new RegistroDeParqueoDAO();
     private int capacidadMotos = 50;
     private int capacidadCarros = 70;
 

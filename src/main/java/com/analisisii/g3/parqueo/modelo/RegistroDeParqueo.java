@@ -2,10 +2,6 @@ package com.analisisii.g3.parqueo.modelo;
 
 import com.analisisii.g3.parqueo.constantes.EstadoRegistroDeParqueo;
 import com.analisisii.g3.utilidades.Horario;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -29,7 +25,23 @@ public class RegistroDeParqueo {
     public Integer getIdRegistroParqueo() {
         return idRegistroParqueo;
     }
+    
+    public void setIdRegistroParqueo(Integer idRegistroParqueo) {
+        this.idRegistroParqueo = idRegistroParqueo;
+    }
 
+    public void setFechaHoraEntrada(String fechaHoraEntrada) {
+        this.fechaHoraEntrada = fechaHoraEntrada;
+    }
+
+    public void setFechaHoraSalida(String fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
+    }
+
+    public void setEstado(EstadoRegistroDeParqueo estado) {
+        this.estado = estado;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -40,7 +52,5 @@ public class RegistroDeParqueo {
         sb.append('}');
         return sb.toString();
     }
-    
-    
 
 }
