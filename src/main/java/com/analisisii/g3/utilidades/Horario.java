@@ -1,5 +1,6 @@
 package com.analisisii.g3.utilidades;
 
+import java.io.Serializable;
 import java.text.*;
 import java.util.*;
 
@@ -7,7 +8,7 @@ import java.util.*;
  *
  * @author gian_
  */
-public class Horario {
+public class Horario implements Serializable {
     
     public String obtenerFechaHora() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

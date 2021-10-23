@@ -2,12 +2,13 @@ package com.analisisii.g3.parqueo.modelo;
 
 import com.analisisii.g3.parqueo.constantes.EstadoRegistroDeParqueo;
 import com.analisisii.g3.utilidades.Horario;
+import java.io.Serializable;
 
 /**
  *
  * @author gian_
  */
-public class RegistroDeParqueo {
+public class RegistroDeParqueo implements Serializable{
     private Integer idRegistroParqueo;
     private String fechaHoraEntrada;
     private String fechaHoraSalida;
@@ -20,6 +21,10 @@ public class RegistroDeParqueo {
     public RegistroDeParqueo(){
         this.fechaHoraEntrada = this.horario.obtenerFechaHora();
         this.estado = EstadoRegistroDeParqueo.ACTIVO;
+    }
+
+    public String getFechaHoraEntrada() {
+        return fechaHoraEntrada;
     }
 
     public Integer getIdRegistroParqueo() {

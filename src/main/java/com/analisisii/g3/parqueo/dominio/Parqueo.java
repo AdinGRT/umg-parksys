@@ -23,8 +23,8 @@ public class Parqueo implements ParqueoInterface {
     private final int maximoMotocicletas;
     
     
-    private HashMap<String, Panel> panelesDeEntrada;
-    private HashMap<String, Panel> panelesDeSalida;
+    private HashMap<String, PanelEntrada> panelesDeEntrada;
+    private HashMap<String, PanelEntrada> panelesDeSalida;
     
     //private HashMap<String, Vehiculo> vehiculosEnParqueo;
     private Map<String, RegistroDeParqueo> registrosDeParqueoActivos;
@@ -50,11 +50,12 @@ public class Parqueo implements ParqueoInterface {
     }
 
     @Override
-    public synchronized RegistroDeParqueo generarRegistroDeParqueo(Vehiculo vehiculo) {
+    public RegistroDeParqueo generarRegistroDeParqueo(Vehiculo vehiculo, int idRegistro) {
         if (this.estaLleno(vehiculo.getTipoVehiculo())) {
             System.out.println("EL PARQUEO SE ENCUENTRA EN SU CAPACIDAD MAXIMA.");
         }
         RegistroDeParqueo registro = new RegistroDeParqueo();
+        registro.setIdRegistroParqueo(idRegistro);
         vehiculo.setRegistroDeParqueo(registro);
         
         this.registrosDeParqueoActivos.put(vehiculo.getMatricula(), registro);

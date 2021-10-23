@@ -1,10 +1,11 @@
 package com.analisisii.g3.parqueo.modelo;
 import com.analisisii.g3.parqueo.constantes.TipoDeVehiculo;
+import java.io.Serializable;
 /**
  *
  * @author gian_
  */
-public class Vehiculo {
+public class Vehiculo implements Serializable{
     private Integer idVehiculo;
     private String matricula;
     private String marca;

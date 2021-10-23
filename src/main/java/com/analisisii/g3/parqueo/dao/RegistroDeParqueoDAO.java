@@ -6,13 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
-import com.analisisii.g3.parqueo.modelo.Vehiculo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +47,8 @@ public class RegistroDeParqueoDAO {
             + "INNER JOIN tipo_vehiculo ON vehiculo.id_tipo_vehiculo = tipo_vehiculo.id_tipo_vehiculo\n"
             + "WHERE id_status_reg_parqueo = 1 AND tipo_vehiculo.id_tipo_vehiculo =  ?;";
 
+    private static final String COUNT_REGISTROS = "SELECT count(*) FROM registro_parqueo;";
+    
     public List<RegistroDeParqueo> listarRegistrosPorEstado(int idEstado) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -125,6 +124,32 @@ public class RegistroDeParqueoDAO {
             }
         }
         return cantidadEspaciosOcupados;
+    }
+    
+    public int contarRegistros() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int cantidadRegistros = 0;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(COUNT_REGISTROS);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadRegistros = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroDeParqueoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Conexion.desconectar(rs);
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistroDeParqueoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cantidadRegistros;
     }
 
 

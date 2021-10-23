@@ -9,7 +9,7 @@ import com.analisisii.g3.parqueo.modelo.Vehiculo;
  * @author gian_
  */
 public interface ParqueoInterface {
-    public RegistroDeParqueo generarRegistroDeParqueo(Vehiculo vehiculo);
+    public RegistroDeParqueo generarRegistroDeParqueo(Vehiculo vehiculo, int id);
     
     public boolean estaLleno(TipoDeVehiculo tipoDeVehiculo);
     
