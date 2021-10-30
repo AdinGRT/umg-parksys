@@ -30,6 +30,9 @@ public class Vehiculo implements Serializable{
     public Vehiculo(String matricula, TipoDeVehiculo tipoVehiculo) {
         this.matricula = matricula;
         this.tipoVehiculo = tipoVehiculo;
+        this.marca = "";
+        this.modelo = "";
+        this.color = "";
     }
 
     
@@ -95,13 +98,14 @@ public class Vehiculo implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("Vehiculo{idVehiculo=").append(idVehiculo);
         sb.append(", matricula=").append(matricula);
+        sb.append(", marca=").append(marca);
+        sb.append(", modelo=").append(modelo);
+        sb.append(", color=").append(color);
         sb.append(", tipoVehiculo=").append(tipoVehiculo);
         sb.append(", registro=").append(registro);
         sb.append('}');
         return sb.toString();
     }
-
-    
 
     
     

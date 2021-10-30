@@ -12,6 +12,7 @@ public class RegistroDeParqueo implements Serializable{
     private Integer idRegistroParqueo;
     private String fechaHoraEntrada;
     private String fechaHoraSalida;
+    private Integer idVehiculo;
     private EstadoRegistroDeParqueo estado;
     
     //private Integer cantidadTiempo;
@@ -21,6 +22,14 @@ public class RegistroDeParqueo implements Serializable{
     public RegistroDeParqueo(){
         this.fechaHoraEntrada = this.horario.obtenerFechaHora();
         this.estado = EstadoRegistroDeParqueo.ACTIVO;
+    }
+
+    public String getFechaHoraSalida() {
+        return fechaHoraSalida;
+    }
+
+    public EstadoRegistroDeParqueo getEstado() {
+        return estado;
     }
 
     public String getFechaHoraEntrada() {
@@ -56,6 +65,14 @@ public class RegistroDeParqueo implements Serializable{
         sb.append(", estado=").append(estado.name());
         sb.append('}');
         return sb.toString();
+    }
+
+    public Integer getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public void setIdVehiculo(Integer idVehiculo) {
+        this.idVehiculo = idVehiculo;
     }
 
 }

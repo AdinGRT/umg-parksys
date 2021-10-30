@@ -1,11 +1,13 @@
 package com.analisisii.g3.parqueo.dao;
 
 import com.analisisii.g3.parqueo.constantes.EstadoRegistroDeParqueo;
+import com.analisisii.g3.parqueo.modelo.RegParqueoPanel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +32,12 @@ public class RegistroDeParqueoDAO {
             + "WHERE registro_parqueo.id_status_reg_parqueo = ?;";
 
     private static final String SQL_INSERT_INGRESO = "INSERT INTO registro_parqueo"
-            + "(fecha_hora_entrada, fecha_hora_salida, id_vehiculo, id_status_reg_parqueo) "
-            + "VALUES (?, ?, ?, ?)";
+            + "(fecha_hora_entrada, id_vehiculo, id_status_reg_parqueo) "
+            + "VALUES (?, ?, ?)";
+    
+    
+    private static final String SQL_INSERT_ES_PANEL = "INSERT INTO reg_parqueo_panel_es "
+            + "(id_registro_parqueo, id_panel_es, id_metodo_es, id_usuario) VALUES (?, ?, ?, ?)";
 
     private static final String SQL_UPDATE_SALIDA = "UPDATE ticket "
             + "SET fecha_hora_salida = ? WHERE id_status_reg_parqueo = ?";
@@ -48,6 +54,68 @@ public class RegistroDeParqueoDAO {
             + "WHERE id_status_reg_parqueo = 1 AND tipo_vehiculo.id_tipo_vehiculo =  ?;";
 
     private static final String COUNT_REGISTROS = "SELECT count(*) FROM registro_parqueo;";
+    
+    
+    public int insertRegistroDeParqueo(RegistroDeParqueo registro) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rows = 0;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_INSERT_INGRESO, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, registro.getFechaHoraEntrada());
+            stmt.setInt(2, registro.getIdVehiculo());
+            stmt.setInt(3, registro.getEstado().ordinal());
+
+            rows = stmt.executeUpdate();
+            
+            rs = stmt.getGeneratedKeys();
+            while(rs.next()) {
+                registro.setIdRegistroParqueo(rs.getInt(1));
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rows;
+    }
+    
+    public int insertRegPanelES(RegParqueoPanel regpp){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rows = 0;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_INSERT_ES_PANEL);
+            stmt.setInt(1, regpp.getIdRegistro());
+            stmt.setInt(2, regpp.getIdPanelES());
+            stmt.setInt(3, regpp.getIdMetodoES());
+            //stmt.setInt(4, regpp.getIdTarjeta());
+            //stmt.setInt(5, regpp.getIdCliente());
+            stmt.setInt(4, regpp.getIdUsuario());
+
+            rows = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rows;
+    }
     
     public List<RegistroDeParqueo> listarRegistrosPorEstado(int idEstado) throws SQLException {
         Connection conn = null;

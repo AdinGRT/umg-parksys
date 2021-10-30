@@ -57,6 +57,7 @@ public class Parqueo implements ParqueoInterface {
         RegistroDeParqueo registro = new RegistroDeParqueo();
         registro.setIdRegistroParqueo(idRegistro);
         vehiculo.setRegistroDeParqueo(registro);
+        registro.setIdVehiculo(vehiculo.getIdVehiculo());
         
         this.registrosDeParqueoActivos.put(vehiculo.getMatricula(), registro);
         this.incrementarContadoresPorTipo(vehiculo.getTipoVehiculo());
@@ -92,6 +93,22 @@ public class Parqueo implements ParqueoInterface {
         } else if (tipoDeVehiculo == TipoDeVehiculo.MOTOCICLETA) {
             contadorMotocicletas++;
         }
+    }
+
+    public int getContadorParticulares() {
+        return contadorParticulares;
+    }
+
+    public int getContadorMotocicletas() {
+        return contadorMotocicletas;
+    }
+
+    public int getMaximoVehiculos() {
+        return maximoVehiculos;
+    }
+
+    public int getMaximoMotocicletas() {
+        return maximoMotocicletas;
     }
     
 }

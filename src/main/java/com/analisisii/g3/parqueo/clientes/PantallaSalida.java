@@ -7,7 +7,6 @@ package com.analisisii.g3.parqueo.clientes;
 
 import com.analisisii.g3.parqueo.dominio.PanelEntrada;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
-import com.analisisii.g3.utilidades.Hora;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,18 +18,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import sun.misc.VM;
 
 /**
  *
  * @author gian_
  */
-public class PantallaEntrada extends javax.swing.JFrame {
+public class PantallaSalida extends javax.swing.JFrame {
 
-    /*
     private ConfiguracionAppCliente config;
     private String ip;
     private int puerto;
@@ -47,22 +43,14 @@ public class PantallaEntrada extends javax.swing.JFrame {
     private ObjectOutputStream oos;
     
     private Map<String, RegistroDeParqueo> registroEntrante;
-     */
+    
     /**
      * Creates new form PantallaEntrada
      */
-    
-    private Hora hora;
-    
-    public PantallaEntrada() {
-
+    public PantallaSalida() {
+        
         initComponents();
-
-        this.lblFechaHora.setBorder(new EmptyBorder(10, 10, 10, 10));
-        this.hora = new Hora(lblFechaHora);
-        Thread thread = new Thread(this.hora);
-        thread.start();
-        /*
+        this.lblFechaHora.setBorder(new EmptyBorder(10,10,10,10));
         this.config = new ConfiguracionAppCliente();
         this.ip = this.config.getIpServidor();
         this.puerto = this.config.getPuerto();
@@ -72,9 +60,10 @@ public class PantallaEntrada extends javax.swing.JFrame {
         PanelEntrada panelEntrada = new PanelEntrada(this.idPanel, this.descripcionPanel);
         this.panelEntrada = panelEntrada;
         System.out.println(this.panelEntrada);
-        this.estaConectado = ConexionSocket.conectarAlServidor(this.ip, this.puerto, this.socket, this.panelEntrada, "entrada");
-         */
-
+        //this.estaConectado = ConexionSocket.conectarAlServidor(this.ip, this.puerto, this.socket, this.panelEntrada, "entrada");
+        
+        
+        
     }
 
     /**
@@ -124,8 +113,7 @@ public class PantallaEntrada extends javax.swing.JFrame {
         lblMensajeEnPantalla.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         lblMensajeEnPantalla.setForeground(new java.awt.Color(217, 179, 16));
         lblMensajeEnPantalla.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMensajeEnPantalla.setText("BIENVENIDO!");
-        lblMensajeEnPantalla.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblMensajeEnPantalla.setText("INERTE SU TICKET");
         lblMensajeEnPantalla.setPreferredSize(new java.awt.Dimension(100, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -152,11 +140,6 @@ public class PantallaEntrada extends javax.swing.JFrame {
 
         btnTicket.setText("TICKET");
         btnTicket.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnTicket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTicketMouseClicked(evt);
-            }
-        });
         btnTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTicketActionPerformed(evt);
@@ -207,44 +190,37 @@ public class PantallaEntrada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cambiarTexto(JLabel et, String texto) {
-        et.setText(texto);
-    }
-
-    private boolean registro() {
-        try {
-            ServiceLocatorTCP.registrarEntrada("entrada", "", "");
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(PantallaEntrada.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
     private void btnTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketActionPerformed
-        
-        lblMensajeEnPantalla.setText("PROCESANDO...");
-        this.btnTicket.setEnabled(false);
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                if (registro()) {
-                    lblMensajeEnPantalla.setText("PASE ADELANTE...");
-                    btnTicket.setEnabled(true);
-                } else {
-                    lblMensajeEnPantalla.setText("HA OCURRIDO UN ERROR!!!");
-                    btnTicket.setEnabled(true);
+        System.out.println("Boton Ticket Presionado...");
+        System.out.println("Esta conectado: " + this.estaConectado);
+        String solicitud = "ticket";
+        try {
+            // TODO add your handling code here:
+            Socket miSocket = new Socket(this.ip, this.puerto);
+            System.out.println("Test Cliente: Socket creado");
+            dis = new DataInputStream(miSocket.getInputStream());
+            dos = new DataOutputStream(miSocket.getOutputStream());
+            
+            dos.writeUTF(solicitud);
+            System.out.println(dis.readUTF());
+            
+            
+            ois = new ObjectInputStream(miSocket.getInputStream());
+            
+            
+            registroEntrante = (Map<String, RegistroDeParqueo>) ois.readObject();
+            System.out.println("Llegaron los datos...");
+            
+            Set<String> matriculas = registroEntrante.keySet();
+                for (String matricula : matriculas) {
+                    this.panelEntrada.imprimirTicket(matricula, registroEntrante.get(matricula));
                 }
-                try {
-                    Thread.sleep(4000);
-                    lblMensajeEnPantalla.setText("BIENVENIDO!");
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PantallaEntrada.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-        Thread thread = new Thread(r);
-        thread.start();
+           
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaSalida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PantallaSalida.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnTicketActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
@@ -252,11 +228,6 @@ public class PantallaEntrada extends javax.swing.JFrame {
         String numeroDispositivo = JOptionPane.showInputDialog("Dispositivo: ");
         System.out.println(numeroDispositivo);
     }//GEN-LAST:event_btnTarjetaActionPerformed
-
-    private void btnTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTicketMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnTicketMouseClicked
 
     /**
      * @param args the command line arguments
@@ -275,21 +246,23 @@ public class PantallaEntrada extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaEntrada().setVisible(true);
+                new PantallaSalida().setVisible(true);
             }
         });
     }
