@@ -8,9 +8,12 @@ package com.analisisii.g3.parqueo.clientes;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +34,8 @@ public class PantallaMonitoreo extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMonitoreo
      */
+    private List<String> matriculas = new ArrayList<>();
+
     public PantallaMonitoreo() {
 
         initComponents();
@@ -529,7 +534,8 @@ public class PantallaMonitoreo extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "REGISTRO NO FUE CREADO.");
         }
-        txtMatriculaEntrada.setText("");
+        llenarJTxt(this.txtMatriculaSalida);
+        llenarLista(this.matriculas, this.jListEntradas);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean registro() {
@@ -544,12 +550,22 @@ public class PantallaMonitoreo extends javax.swing.JFrame {
             } else {
                 tipoVehiculo = "PARTICULAR";
             }
-            ServiceLocatorTCP.registrarEntrada("monitor", tipoVehiculo, matricula);
+            ServiceLocatorTCP slt = new ServiceLocatorTCP(this.matriculas);
+            slt.registrarEntrada("monitor", tipoVehiculo, matricula);
             return true;
         } catch (IOException ex) {
             Logger.getLogger(PantallaEntrada.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    public void llenarLista(List<String> matriculas, JList lista) {
+        DefaultListModel dlm = new DefaultListModel();
+        for (String m : matriculas) {
+            System.out.println(m);
+            dlm.addElement(m);
+        }
+        lista.setModel(dlm);
     }
 
     public void llenarJTxt(JTextField campo) {

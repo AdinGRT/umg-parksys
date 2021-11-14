@@ -1,5 +1,6 @@
 package com.analisisii.g3.parqueo.clientes;
 
+import com.analisisii.g3.cobros.all.CobroLogica;
 import com.analisisii.g3.parqueo.constantes.TipoDeVehiculo;
 import com.analisisii.g3.parqueo.controlador.ParqueoLogica;
 import com.analisisii.g3.parqueo.controlador.VehiculoException;
@@ -27,15 +28,17 @@ public class ServerTCP implements Runnable {
     private ParqueoLogica parqueo;
     private List<Vehiculo> vehiculosEntrantes;
     private RegParqueoPanel regpp;
+    private CobroLogica cobros;
     
     private Vehiculo vehiculo;
     private RegistroDeParqueo registro;
     
-    public ServerTCP(Socket socket, List<Vehiculo> vehiculosEntrantes, ParqueoLogica parqueo, RegParqueoPanel regpp) {
+    public ServerTCP(Socket socket, List<Vehiculo> vehiculosEntrantes, ParqueoLogica parqueo, RegParqueoPanel regpp, CobroLogica cobros) {
         this.socket = socket;
         this.vehiculosEntrantes = vehiculosEntrantes;
         this.parqueo = parqueo;
         this.regpp = regpp;
+        this.cobros = cobros;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class ServerTCP implements Runnable {
                     registrarEntrada(dis, dos);
                     break;
                 case 2:
-                    //realizarCobro();
+                    realizarCobro(dis, dos);
                     break;
                 case 3:
                     //registrarSalida();
@@ -67,6 +70,39 @@ public class ServerTCP implements Runnable {
             Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void realizarCobro(DataInputStream dis, DataOutputStream dos){
+        try {
+            String cliente = dis.readUTF();
+            System.out.println("Server Test -> Cliente conectado: " + cliente);
+            int numeroRegistro = dis.readInt();
+            boolean estaActivo = cobros.estaActivoRegistro(numeroRegistro);
+            dos.writeBoolean(estaActivo);
+            if(estaActivo){
+                double montoAPagar = cobros.determinarMonto();
+                dos.writeDouble(montoAPagar);
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        } finally {
+            try {
+                if (dis != null) {
+                    dis.close();
+                }
+                if (dos != null) {
+                    dos.close();
+                }
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException(ex);
+            }
+        }
+    }   
 
     public boolean validarVehiculo(DataInputStream dis, DataOutputStream dos) {
         try {
@@ -83,14 +119,6 @@ public class ServerTCP implements Runnable {
             Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }
-    
-    public void clienteEntrada(){
-        
-    }
-    
-    public void clienteMonitor(){
-        
     }
     
     public void registrarEntrada(DataInputStream dis, DataOutputStream dos) {
@@ -126,7 +154,13 @@ public class ServerTCP implements Runnable {
                 if(validacion) {
                     addVehiculoEntrante(this.vehiculo);
                 }
-                dos.writeUTF("OK");
+                System.out.println("Prueba...");
+                Set<String> matriculas = this.parqueo.getRegistrosDeParqueoActivos().keySet();
+                dos.writeInt(matriculas.size());
+                for (String m : matriculas) {
+                    dos.writeUTF(m);
+                }
+                
             }
         } catch (IOException ex) {
             Logger.getLogger(ServerTCP.class.getName()).log(Level.SEVERE, null, ex);

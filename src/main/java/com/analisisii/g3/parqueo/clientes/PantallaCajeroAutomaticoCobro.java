@@ -5,32 +5,19 @@
  */
 package com.analisisii.g3.parqueo.clientes;
 
-import com.analisisii.g3.parqueo.dominio.PanelEntrada;
-import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
 import com.analisisii.g3.utilidades.Hora;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import sun.misc.VM;
 
 /**
  *
  * @author gian_
  */
-public class PantallaEntrada extends javax.swing.JFrame {
+public class PantallaCajeroAutomaticoCobro extends javax.swing.JFrame {
 
     /*
     private ConfiguracionAppCliente config;
@@ -54,10 +41,11 @@ public class PantallaEntrada extends javax.swing.JFrame {
      * Creates new form PantallaEntrada
      */
     
-    private List<String> matriculas = new ArrayList<>();
     private Hora hora;
+    private String nombreCliente = "KIOSKO COBRO";
+    private Double montoAPagar;
     
-    public PantallaEntrada() {
+    public PantallaCajeroAutomaticoCobro() {
 
         initComponents();
 
@@ -94,6 +82,7 @@ public class PantallaEntrada extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         lblFechaHora = new javax.swing.JLabel();
         lblMensajeEnPantalla = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnTicket = new javax.swing.JButton();
         btnTarjeta = new javax.swing.JButton();
@@ -115,9 +104,9 @@ public class PantallaEntrada extends javax.swing.JFrame {
         lblFechaHora.setText("dd-MM-yy HH:mm:ss");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.weightx = 0.5;
@@ -139,6 +128,15 @@ public class PantallaEntrada extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.8;
         jPanel3.add(lblMensajeEnPantalla, gridBagConstraints);
+
+        jPanel4.setBackground(new java.awt.Color(11, 60, 93));
+        jPanel4.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.weighty = 0.4;
+        jPanel3.add(jPanel4, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -214,41 +212,29 @@ public class PantallaEntrada extends javax.swing.JFrame {
         et.setText(texto);
     }
 
-    private boolean registro() {
+    private boolean cobro(int numeroRegistro) {
+        ServiceLocatorTCP slt = new ServiceLocatorTCP();
         try {
-            ServiceLocatorTCP slt = new ServiceLocatorTCP(matriculas);
-            slt.registrarEntrada("entrada", "", "");
+            this.montoAPagar = slt.realizarCobro(this.nombreCliente, numeroRegistro);
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(PantallaEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaCajeroAutomaticoCobro.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     private void btnTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTicketActionPerformed
         
+        String numeroRegistro = JOptionPane.showInputDialog("Numero de Ticket: ");
+        System.out.println(numeroRegistro);
+        int numero = Integer.parseInt(numeroRegistro);
+        
         lblMensajeEnPantalla.setText("PROCESANDO...");
-        this.btnTicket.setEnabled(false);
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                if (registro()) {
-                    lblMensajeEnPantalla.setText("PASE ADELANTE...");
-                    btnTicket.setEnabled(true);
-                } else {
-                    lblMensajeEnPantalla.setText("HA OCURRIDO UN ERROR!!!");
-                    btnTicket.setEnabled(true);
-                }
-                try {
-                    Thread.sleep(4000);
-                    lblMensajeEnPantalla.setText("BIENVENIDO!");
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PantallaEntrada.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-        Thread thread = new Thread(r);
-        thread.start();
+        if(cobro(numero)) {
+            lblMensajeEnPantalla.setText("MONTO A PAGAR: " + this.montoAPagar);
+        } else {
+            lblMensajeEnPantalla.setText("HA OCURRIDO UN ERROR!");
+        }
     }//GEN-LAST:event_btnTicketActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
@@ -279,21 +265,23 @@ public class PantallaEntrada extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaCajeroAutomaticoCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaCajeroAutomaticoCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaCajeroAutomaticoCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaCajeroAutomaticoCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaEntrada().setVisible(true);
+                new PantallaCajeroAutomaticoCobro().setVisible(true);
             }
         });
     }
@@ -305,6 +293,7 @@ public class PantallaEntrada extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblFechaHora;
     private javax.swing.JLabel lblMensajeEnPantalla;
     // End of variables declaration//GEN-END:variables

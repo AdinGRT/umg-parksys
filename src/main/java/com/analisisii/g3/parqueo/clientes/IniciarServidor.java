@@ -1,5 +1,6 @@
 package com.analisisii.g3.parqueo.clientes;
 
+import com.analisisii.g3.cobros.all.CobroLogica;
 import com.analisisii.g3.parqueo.controlador.ParqueoLogica;
 import com.analisisii.g3.parqueo.modelo.RegParqueoPanel;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
@@ -27,10 +28,11 @@ public class IniciarServidor {
             Map<String, RegistroDeParqueo> registros = new HashMap<>();
             List<Vehiculo> vehiculos = new ArrayList<>();
             RegParqueoPanel regpp = new RegParqueoPanel();
+            CobroLogica cobros = new CobroLogica();
             while(true) {
                 System.out.println("Test Server -> Esperando conexiones...");
                 s = ss.accept();
-                Thread thread = new Thread(new ServerTCP(s, vehiculos, parqueo, regpp));
+                Thread thread = new Thread(new ServerTCP(s, vehiculos, parqueo, regpp, cobros));
                 thread.start();
             }
         } catch (IOException ex) {

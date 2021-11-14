@@ -34,8 +34,7 @@ public class RegistroDeParqueoDAO {
     private static final String SQL_INSERT_INGRESO = "INSERT INTO registro_parqueo"
             + "(fecha_hora_entrada, id_vehiculo, id_status_reg_parqueo) "
             + "VALUES (?, ?, ?)";
-    
-    
+
     private static final String SQL_INSERT_ES_PANEL = "INSERT INTO reg_parqueo_panel_es "
             + "(id_registro_parqueo, id_panel_es, id_metodo_es, id_usuario) VALUES (?, ?, ?, ?)";
 
@@ -54,8 +53,40 @@ public class RegistroDeParqueoDAO {
             + "WHERE id_status_reg_parqueo = 1 AND tipo_vehiculo.id_tipo_vehiculo =  ?;";
 
     private static final String COUNT_REGISTROS = "SELECT count(*) FROM registro_parqueo;";
-    
-    
+
+    private static final String SQL_SELECT_REGISTRO = "SELECT * FROM registro_parqueo WHERE id_registro_parqueo = ?";
+
+    private static final String SQL_SELECT_DESCRIPCION = "SELECT descripcion_tipo_vehiculo FROM tipo_vehiculo\n"
+            + "INNER JOIN vehiculo ON tipo_vehiculo.id_tipo_vehiculo = vehiculo.id_tipo_vehiculo\n"
+            + "INNER JOIN registro_parqueo ON vehiculo.id_vehiculo = registro_parqueo.id_vehiculo\n"
+            + "WHERE id_registro_parqueo = ?";
+
+    public String obtenerTipoVehiculo(int idRegistro) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String tipoVehiculo = null;
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_SELECT_DESCRIPCION);
+            stmt.setInt(1, idRegistro);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                tipoVehiculo = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return tipoVehiculo;
+    }
+
     public int insertRegistroDeParqueo(RegistroDeParqueo registro) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -69,12 +100,12 @@ public class RegistroDeParqueoDAO {
             stmt.setInt(3, registro.getEstado().ordinal());
 
             rows = stmt.executeUpdate();
-            
+
             rs = stmt.getGeneratedKeys();
-            while(rs.next()) {
+            while (rs.next()) {
                 registro.setIdRegistroParqueo(rs.getInt(1));
             }
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -87,8 +118,8 @@ public class RegistroDeParqueoDAO {
         }
         return rows;
     }
-    
-    public int insertRegPanelES(RegParqueoPanel regpp){
+
+    public int insertRegPanelES(RegParqueoPanel regpp) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -116,7 +147,7 @@ public class RegistroDeParqueoDAO {
         }
         return rows;
     }
-    
+
     public List<RegistroDeParqueo> listarRegistrosPorEstado(int idEstado) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -193,7 +224,7 @@ public class RegistroDeParqueoDAO {
         }
         return cantidadEspaciosOcupados;
     }
-    
+
     public int contarRegistros() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -220,6 +251,35 @@ public class RegistroDeParqueoDAO {
         return cantidadRegistros;
     }
 
+    public RegistroDeParqueo buscarRegistroPorId(int idRegistro) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        RegistroDeParqueo registro = new RegistroDeParqueo();
+        try {
+            conn = Conexion.conectar();
+            stmt = conn.prepareStatement(SQL_SELECT_REGISTRO);
+            stmt.setInt(1, idRegistro);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                registro.setIdRegistroParqueo(rs.getInt(1));
+                registro.setFechaHoraEntrada(rs.getString(2));
+                registro.setFechaHoraSalida(rs.getString(3));
+                registro.setIdVehiculo(rs.getInt(4));
+                registro.setEstado(EstadoRegistroDeParqueo.values()[rs.getInt(5)]);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                Conexion.desconectar(stmt);
+                Conexion.desconectar(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return registro;
+    }
 
     /*PASAR A OTRA CLASE
     private static final String SQL_SELECT_ULTIMO_TICKET_VEHICULO = "SELECT * FROM ticket "

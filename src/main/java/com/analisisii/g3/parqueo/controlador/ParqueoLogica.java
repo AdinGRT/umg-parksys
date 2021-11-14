@@ -1,14 +1,18 @@
 package com.analisisii.g3.parqueo.controlador;
 
 import com.analisisii.g3.parqueo.constantes.EstadoRegistroDeParqueo;
+import com.analisisii.g3.parqueo.constantes.TipoDeTarifa;
 import com.analisisii.g3.parqueo.constantes.TipoDeVehiculo;
 import com.analisisii.g3.parqueo.dao.RegistroDeParqueoDAO;
 import com.analisisii.g3.parqueo.dao.VehiculoDAO;
 import com.analisisii.g3.parqueo.dominio.Parqueo;
 import com.analisisii.g3.parqueo.modelo.RegParqueoPanel;
 import com.analisisii.g3.parqueo.modelo.RegistroDeParqueo;
+import com.analisisii.g3.parqueo.modelo.Tarifario;
 import com.analisisii.g3.parqueo.modelo.Vehiculo;
+import com.analisisii.g3.utilidades.Horario;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,10 +88,7 @@ public class ParqueoLogica {
         
     }
 
-    public Map<String, RegistroDeParqueo> getRegistrosDeParqueoActivos() {
-        return registrosDeParqueoActivos;
-    }
-
+    
     //2. Opcion Vehiculo
     public synchronized Vehiculo obtenerVehiculo(String matricula, String tipoDeVehiculo) throws VehiculoException {
         this.vehiculoDao = new VehiculoDAO();
@@ -106,6 +107,10 @@ public class ParqueoLogica {
         }
     }
 
+    public Map<String, RegistroDeParqueo> getRegistrosDeParqueoActivos() {
+        return registrosDeParqueoActivos;
+    }
+    
     public int getCantidadParticulares() {
         return cantidadParticulares;
     }

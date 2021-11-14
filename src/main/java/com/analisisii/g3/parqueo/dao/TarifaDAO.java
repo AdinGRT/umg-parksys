@@ -23,6 +23,15 @@ public class TarifaDAO {
     private static String baseURI = "http://localhost:8080/tarifas-parksys/api/tarifas";
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
+    public Tarifario obtenerTarifa(Integer idTarifa) {
+        WebTarget target = getWebTarget();
+        String id = idTarifa.toString();
+        Tarifario tarifa = target.path(id)
+                .request().accept(MediaType.APPLICATION_JSON)
+                .get(Tarifario.class);
+        return tarifa;
+    }
+
     public List<Tarifario> verTarifas() {
         ArrayList<Tarifario> tarifas = null;
         try {
@@ -36,18 +45,18 @@ public class TarifaDAO {
 
     public void actualizarTarifa(Tarifario tarifa) {
         WebTarget target = getWebTarget();
-        
+
         String id = tarifa.getIdTarifa().toString();
         Response response = target.path(id).request()
                 .put(Entity.entity(tarifa, MediaType.APPLICATION_JSON), Response.class);
         System.out.println(response);
     }
-    
+
     private static WebTarget getWebTarget() {
         ClientConfig config = new ClientConfig();
         Client client = ClientBuilder.newClient(config);
-         
-        return client.target(baseURI);     
+
+        return client.target(baseURI);
     }
 
 }
